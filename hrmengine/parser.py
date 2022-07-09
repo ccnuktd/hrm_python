@@ -3,6 +3,12 @@ import logging as log
 
 
 def _to_op(string):
+    """
+    parse the input code as ['operator', {'operand'}]
+    it is possible for no-operands operator like
+    'INBOX' or 'OUTBOX'
+    specific operators are in cpu.py [knownOps]
+    """
     string = string.split(' ')
     return list(filter(lambda l: l != '', string))
 
@@ -10,14 +16,18 @@ def _to_op(string):
 def is_known_op(opcode):
     """
     Checks if the given op is in knownOps or ends with ':'
+    if the op ends with ':', it means it's a label
 
-    :param opcode: Operation without arguments like 'BUMP'
+    :param opcode: Operation without arguments like 'INBOX'
     :return: True or False
     """
     return opcode in cpu.knownOps or opcode.endswith(':')
 
 
 def needs_param(opcode):
+    """
+    Check whether a known op need parameter
+    """
     return opcode not in ['INBOX', 'OUTBOX'] and not opcode.endswith(":")
 
 

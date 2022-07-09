@@ -7,6 +7,13 @@ import sys
 class State:
     """
     Representate a state for the cpu to process
+    inbox: iterable array, used to process
+    code: input programming language
+    regs: registers in CPU, total 14
+    pointer: bus data
+    outbox: iterable array, used to output
+    pc: program counter
+    prev_state: recode the previous state
     """
     def __init__(self, inbox, code):
         self.inbox = inbox
@@ -19,6 +26,9 @@ class State:
 
 
 class ExecutionExceptin(Exception):
+    """
+    exception handle
+    """
     def __init__(self, value):
         self.value = value
 
@@ -27,6 +37,12 @@ class ExecutionExceptin(Exception):
 
 
 def getRegIndexToRef(ref, regs):
+    """
+    Memory addressing:
+    X: Direct Addressing
+    [X]: Indirect Addressing
+    return: an int address
+    """
     if ref.startswith('['):
         return int(regs[int(ref[1:-1])])
     else:
@@ -34,6 +50,9 @@ def getRegIndexToRef(ref, regs):
 
 
 def exeInbox(state, params):
+    """
+    put the head of input box to pointer
+    """
     try:
         state.pointer = next(state.inbox)
     except StopIteration:
@@ -41,6 +60,9 @@ def exeInbox(state, params):
 
 
 def exeOutbox(state, params):
+    """
+    put the pointer value to the tail of output box
+    """
     if state.pointer is None:
         raise ExecutionExceptin("OUTBOX without pointer")
     state.outbox.append(state.pointer)
@@ -48,16 +70,26 @@ def exeOutbox(state, params):
 
 
 def exeCopyfrom(state, params):
+    """
+    put pointer value to register
+    """
     index = getRegIndexToRef(params[0], state.regs)
     state.pointer = state.regs[index]
 
 
 def exeCopyto(state, params):
+    """
+    load register value to pointer
+    """
     index = getRegIndexToRef(params[0], state.regs)
     state.regs[index] = state.pointer
 
 
 def exeAdd(state, params):
+    """
+    add Pointer value and Register value, copy it to Pointer
+    only support number
+    """
     if state.pointer is None:
         raise ExecutionExceptin("ADD without pointer")
     index = getRegIndexToRef(params[0], state.regs)
@@ -68,6 +100,10 @@ def exeAdd(state, params):
 
 
 def exeSub(state, params):
+    """
+    subtract Pointer value to Register value and copy it to Pointer
+    support number sub number and alphabet sub alphabet
+    """
     if state.pointer is None:
         raise ExecutionExceptin("Sub without pointer")
 
@@ -86,6 +122,10 @@ def exeSub(state, params):
 
 
 def exeBumpup(state, params):
+    """
+    let register number add one and put value to pointer
+    only support number
+    """
     index = getRegIndexToRef(params[0], state.regs)
 
     if state.regs[index] is None:
@@ -98,6 +138,10 @@ def exeBumpup(state, params):
 
 
 def exeBumpdn(state, params):
+    """
+    let register number subtract one and put value to pointer
+    only support number
+    """
     index = getRegIndexToRef(params[0], state.regs)
 
     if state.regs[index] is None:
