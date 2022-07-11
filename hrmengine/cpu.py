@@ -221,10 +221,15 @@ def tick(given_state):
             if op not in exes:
                 raise ExecutionExceptin("Unkown command " + op)
 
-            log.debug("Execute {} with params {}".format(op, state.pc, params))
+            if params == []:
+                log.debug("Execute {} with no params".format(op))
+            else:
+                log.debug("Execute {} with params {}".format(op, params[0]))
 
             nextPC = None
             try:
+                # only JUMP, JUMPZ and JUMPN have nextPC
+                # nextPC is index of next code
                 nextPC = exes[op](state, params)
             except ExecutionExceptin as e:
                 raise e

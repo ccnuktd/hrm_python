@@ -102,13 +102,14 @@ def parse_clipboard_string(clipboard_string):
 
 def main(filepath):
     ops = parse_file(filepath)
-    inbox = (n for n in "0123")
+    inbox = iter([n for n in "0123"])
     state = cpu.create_state(inbox, ops)
 
-    while cpu.tick(state) != -1:
-        pass
+    next_state = cpu.tick(state)
+    while next_state.pc != -1:
+        next_state = cpu.tick(next_state)
 
-    print("Result:")
+    print("OUTBOX:")
     print(state.outbox)
 
 

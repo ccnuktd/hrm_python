@@ -25,7 +25,7 @@ def get_level_1():
     state = State(iter([6, 7, 6]), [])
     state.outbox = []
     state.regs = []
-    return Level(state, "Ihr Programm sollte Ihrem Arbeiter befehlen, jedes Ding aus der INBOX zu nehmen und in die OUTBOX zu legen.", check)
+    return Level(state, "Your program should command your worker to take each thing out of the INBOX and put it into the OUTBOX.", check)
 
 
 def get_level_2():
