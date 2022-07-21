@@ -31,6 +31,13 @@ def needs_param(opcode):
     return opcode not in ['INBOX', 'OUTBOX'] and not opcode.endswith(":")
 
 
+def is_label(opcode):
+    """
+    Check whether a label
+    """
+    return opcode.endswith(":")
+
+
 def is_valid_op(op):
     """
     Checks the given op if it is valid
@@ -78,6 +85,11 @@ def _convert_to_ops(lines):
     return list(filter(lambda op: is_known_op(op[0]), ops))
 
 
+def _get_op(lines):
+    ops = list(map(_to_op, lines))
+    return list(ops)
+
+
 def parse_file(filepath):
     """
     Parses a file and convert it to a list of ops like
@@ -87,6 +99,17 @@ def parse_file(filepath):
     """
     lines = _read_file(filepath)
     return _convert_to_ops(lines)
+
+
+def parse_op_list():
+    """
+    Parse "../resources/op.txt" and convert to a list of operation
+    ['ADD', 'SUB']
+
+    :return: list of operations
+    """
+    lines = _read_file("../resources/op.txt")
+    return _get_op(lines)
 
 
 def parse_clipboard_string(clipboard_string):
