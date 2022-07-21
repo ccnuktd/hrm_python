@@ -30,8 +30,8 @@ class OperationWidget(QWidget):
 class OperationDropList(QListWidget):
     """支持拖拽的操作区"""
 
-    def __init__(self):
-        super(OperationDropList, self).__init__()
+    def __init__(self, parent=None):
+        super().__init__(parent)
         self.setAcceptDrops(True)
         self.setDragEnabled(True)
         self.setDragDropMode(QAbstractItemView.DragDrop)
@@ -283,9 +283,9 @@ class CodeDropList(QListWidget):
         e.ignore()
 
 
-class CodeWidgetList(QWidget):
-    def __init__(self):
-        super(CodeWidgetList, self).__init__()
+class OpCodeWidget(QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
         self.opeartion_list = None
         self.code_list = None
         self.setMouseTracking(True)
@@ -334,7 +334,7 @@ if __name__ == "__main__":
     list_out = hrmengine.parser.parse_file(filepath=file_path)
 
     app = QApplication(sys.argv)
-    main_window = CodeWidgetList()
+    main_window = OpCodeWidget()
     for l in list_out:
         main_window.add_code(*l)
     for ll in list_op:
