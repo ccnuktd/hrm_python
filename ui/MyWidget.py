@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QWidget, QLabel, QApplication, QVBoxLayout, QHBoxLay
     QListWidgetItem, QAbstractItemView, QInputDialog, QAction, QMessageBox
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QFont, QDragMoveEvent
-from MySignalSlot import MySlot, MySignal
+from MySignal import MySignal
 import hrmengine.parser
 
 
@@ -38,6 +38,12 @@ class OperationDropList(QListWidget):
 
         self.signal = MySignal()
 
+    def init_op(self):
+        list_op = hrmengine.parser.parse_op_list()
+
+        for op in list_op:
+            self.addItem(*op)
+
     def _setItem(self, *operation):
         item_widget = QListWidgetItem()
         item_widget.setSizeHint(QSize(100, 100))
@@ -50,13 +56,16 @@ class OperationDropList(QListWidget):
         self._setItem(*operation)
 
     def dragEnterEvent(self, e: QtGui.QDragEnterEvent) -> None:
-        self.signal.close()
         self.now_row = self.currentRow()
         self.setCurrentRow(-1)
         if self.now_row != -1:
-            self.now_item = self.itemWidget(self.item(self.now_row))
-            self.signal.set_item(self.now_item)
-            self.signal.send()
+            now_item = self.itemWidget(self.item(self.now_row))
+            if now_item != None:
+                op = now_item.get_operation()
+            # 如果QWidget无法获取，则通过QWidgetItem.text()获取
+            else:
+                op = self.item(self.now_row).text()
+            self.signal.set_item(op)
             e.accept()
         else:
             e.ignore()
@@ -183,7 +192,7 @@ class CodeDropList(QListWidget):
 
         self.init_menu()
         self.last_row = None
-        self.slot = MySlot()
+        self.slot = MySignal()
 
     def get_code(self):
         """
@@ -217,7 +226,7 @@ class CodeDropList(QListWidget):
 
     def _setItem(self, *argv):
         item_widget = QListWidgetItem()
-        item_widget.setSizeHint(QSize(100, 100))
+        item_widget.setSizeHint(QSize(100, 60))
 
         code = CodeWidget(*argv)
         self.addItem(item_widget)
@@ -225,7 +234,7 @@ class CodeDropList(QListWidget):
 
     def _insertItem(self, pos, *argv):
         item_widget = QListWidgetItem()
-        item_widget.setSizeHint(QSize(100, 100))
+        item_widget.setSizeHint(QSize(100, 60))
 
         code = CodeWidget(*argv)
         self.insertItem(pos, item_widget)
@@ -241,12 +250,13 @@ class CodeDropList(QListWidget):
         """进行拖拽的时候最先触发的函数"""
         self.now_row = self.row(self.itemAt(e.pos()))
 
-        insert_item = self.slot.get_item()
-        if insert_item != None:
-            # 从操作框拖入
-            op = insert_item.get_operation()
+        op = self.slot.get_item()
+        if op != None:
             # print("op:" + op)
             item_argv = ([op])
+            # code无内容时的插入
+            if self.now_row == -1:
+                self.now_row += 1
             self.insert_item(self.now_row, *item_argv)
             # 更新old_item
             self.old_item = self.itemWidget(self.item(self.now_row))
@@ -308,9 +318,6 @@ class OpCodeWidget(QWidget):
         self.setLayout(layout_main)
         self.resize(800, 1500)
 
-        # 连接两个op_list和code_list通信的信号量
-        self.opeartion_list.signal.send_msg.connect(self.code_list.slot.recv)
-
     def insert_code(self, position, *argv):
         self.code_list.insert_item(position, *argv)
 
@@ -335,8 +342,8 @@ if __name__ == "__main__":
 
     app = QApplication(sys.argv)
     main_window = OpCodeWidget()
-    for l in list_out:
-        main_window.add_code(*l)
+    # for l in list_out:
+    #     main_window.add_code(*l)
     for ll in list_op:
         main_window.add_operation(*ll)
     main_window.show()

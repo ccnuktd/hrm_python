@@ -1,11 +1,15 @@
+import warnings
+from deprecated.sphinx import deprecated
 from PyQt5.QtCore import QObject, pyqtSignal
 
+warnings.filterwarnings("always")
 SET = "SET"
 DELETE = "DELETE"
 OPEN = "OPEN"
 CLOSE = "CLOSE"
 
 
+@deprecated(version='1.0', reason="This class will be removed soon")
 class MySignal(QObject):
     send_msg = pyqtSignal(str, object)
 
@@ -27,6 +31,7 @@ class MySignal(QObject):
         self.state = OPEN
 
 
+@deprecated(version='1.0', reason="This class will be removed soon")
 class MySlot(QObject):
 
     def __init__(self):
@@ -55,5 +60,3 @@ if __name__ == "__main__":
     signal.send()
     signal.close()
     print(slot.get_item())
-
-

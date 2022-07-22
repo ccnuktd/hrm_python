@@ -17,15 +17,15 @@ class Ui_MainWindow(object):
         MainWindow.resize(800, 600)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.listWidget = OperationDropList(self.centralwidget)
-        self.listWidget.setGeometry(QtCore.QRect(390, 50, 151, 441))
-        self.listWidget.setObjectName("listWidget")
-        self.listWidget_2 = CodeDropList(self.centralwidget)
-        self.listWidget_2.setGeometry(QtCore.QRect(580, 50, 161, 491))
-        self.listWidget_2.setObjectName("listWidget_2")
-        self.widget = OpCodeWidget(self.centralwidget)
-        self.widget.setGeometry(QtCore.QRect(130, 150, 121, 101))
+        self.widget = QtWidgets.QWidget(self.centralwidget)
+        self.widget.setGeometry(QtCore.QRect(250, 40, 311, 431))
         self.widget.setObjectName("widget")
+        self.u_op_droplist = OperationDropList(self.widget)
+        self.u_op_droplist.setGeometry(QtCore.QRect(170, 20, 141, 361))
+        self.u_op_droplist.setObjectName("u_op_droplist")
+        self.u_code_droplist = CodeDropList(self.centralwidget)
+        self.u_code_droplist.setGeometry(QtCore.QRect(580, 40, 141, 411))
+        self.u_code_droplist.setObjectName("u_code_droplist")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
@@ -41,4 +41,4 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-from MyWidget import CodeDropList, OpCodeWidget, OperationDropList
+from MyWidget import CodeDropList, OperationDropList
