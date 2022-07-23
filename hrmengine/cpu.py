@@ -9,7 +9,7 @@ class State:
     Representate a state for the cpu to process
     inbox: iterable array, used to process
     code: input programming language
-    regs: registers in CPU, total 14
+    regs: registers in CPU, total 10
     pointer: bus data
     outbox: iterable array, used to output
     pc: program counter
@@ -18,7 +18,7 @@ class State:
     def __init__(self, inbox, code):
         self.inbox = inbox
         self.code = code
-        self.regs = [None] * 14
+        self.regs = [None] * 10
         self.pointer = None
         self.outbox = []
         self.pc = 0

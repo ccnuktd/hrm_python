@@ -3,8 +3,9 @@ import sys
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import QWidget, QLabel, QApplication, QVBoxLayout, QHBoxLayout, QListWidget, \
     QListWidgetItem, QAbstractItemView, QInputDialog, QAction, QMessageBox
-from PyQt5.QtCore import QSize, Qt
+from PyQt5.QtCore import QSize, Qt, QRect
 from PyQt5.QtGui import QFont, QDragMoveEvent
+from deprecated.sphinx import deprecated
 from MySignal import MySignal
 import hrmengine.parser
 
@@ -15,7 +16,7 @@ class OperationWidget(QWidget):
     def __init__(self, *operation):
         super(OperationWidget, self).__init__()
         self._opreation = QLabel(*operation)
-        self._opreation.setFont(QFont("Arial", 20, QFont.Bold))
+        self._opreation.setFont(QFont("Arial", 15, QFont.Bold))
         self.init_ui()
 
     def get_operation(self):
@@ -40,13 +41,12 @@ class OperationDropList(QListWidget):
 
     def init_op(self):
         list_op = hrmengine.parser.parse_op_list()
-
         for op in list_op:
-            self.addItem(*op)
+            self.add_item(*op)
 
     def _setItem(self, *operation):
         item_widget = QListWidgetItem()
-        item_widget.setSizeHint(QSize(100, 100))
+        item_widget.setSizeHint(QSize(0, 60))
 
         op = OperationWidget(*operation)
         self.addItem(item_widget)
@@ -98,7 +98,7 @@ class CodeWidget(QWidget):
         if code_text == "LABEL" or hrmengine.parser.is_label(code_text):
             # label的情况
             self._code_text = QLabel(code_text)
-            self._code_text.setFont(QFont("Arial", 8, QFont.Bold))
+            self._code_text.setFont(QFont("Arial", 10, QFont.Bold))
             self._param = None
             self._state = 2
         elif hrmengine.parser.needs_param(code_text):
@@ -226,7 +226,7 @@ class CodeDropList(QListWidget):
 
     def _setItem(self, *argv):
         item_widget = QListWidgetItem()
-        item_widget.setSizeHint(QSize(100, 60))
+        item_widget.setSizeHint(QSize(0, 40))
 
         code = CodeWidget(*argv)
         self.addItem(item_widget)
@@ -234,7 +234,7 @@ class CodeDropList(QListWidget):
 
     def _insertItem(self, pos, *argv):
         item_widget = QListWidgetItem()
-        item_widget.setSizeHint(QSize(100, 60))
+        item_widget.setSizeHint(QSize(0, 40))
 
         code = CodeWidget(*argv)
         self.insertItem(pos, item_widget)
@@ -294,6 +294,7 @@ class CodeDropList(QListWidget):
 
 
 class OpCodeWidget(QWidget):
+    @deprecated(version='1.0', reason="This class will be removed soon")
     def __init__(self, parent=None):
         super().__init__(parent)
         self.opeartion_list = None
@@ -302,21 +303,18 @@ class OpCodeWidget(QWidget):
         self.init_ui()
 
     def init_ui(self):
+        self.resize(835, 865)
         layout_main = QHBoxLayout()
 
-        self.code_list = CodeDropList()
-        inner_layout = QVBoxLayout()
-        inner_layout.addWidget(self.code_list)
+        self.opeartion_list = OperationDropList(self)
+        self.opeartion_list.setGeometry(QRect(430, 20, 150, 720))
 
-        self.opeartion_list = OperationDropList()
-        operation_layout = QVBoxLayout()
-        operation_layout.addWidget(self.opeartion_list)
-
-        layout_main.addLayout(operation_layout)
-        layout_main.addLayout(inner_layout)
+        self.code_list = CodeDropList(self)
+        self.code_list.setGeometry(QRect(620, 20, 150, 600))
+        layout_main.addWidget(self.opeartion_list)
+        layout_main.addWidget(self.code_list)
 
         self.setLayout(layout_main)
-        self.resize(800, 1500)
 
     def insert_code(self, position, *argv):
         self.code_list.insert_item(position, *argv)
@@ -347,5 +345,5 @@ if __name__ == "__main__":
     for ll in list_op:
         main_window.add_operation(*ll)
     main_window.show()
-    print(main_window.get_code_list())
+    # print(main_window.get_code_list())
     app.exec_()

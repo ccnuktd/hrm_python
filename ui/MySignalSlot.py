@@ -31,9 +31,8 @@ class MySignal(QObject):
         self.state = OPEN
 
 
-@deprecated(version='1.0', reason="This class will be removed soon")
 class MySlot(QObject):
-
+    @deprecated(version='1.0', reason="This class will be removed soon")
     def __init__(self):
         super(MySlot, self).__init__()
         self.item = None

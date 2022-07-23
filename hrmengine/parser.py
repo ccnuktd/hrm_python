@@ -95,7 +95,7 @@ def parse_file(filepath):
     Parses a file and convert it to a list of ops like
     [['BUMPUP','[1]']]
 
-    :return: list of operations ['opcode'(,'arg')]
+    :return: list of operations ['opcode', {'arg'}]
     """
     lines = _read_file(filepath)
     return _convert_to_ops(lines)
@@ -117,7 +117,7 @@ def parse_clipboard_string(clipboard_string):
     Parses the string (normally from clipboard) and convert it to a list of ops like
     [['BUMPUP','[1]']]
 
-    :return: list of operations ['opcode'(,'arg')]
+    :return: list of operations ['opcode', {'arg'}]
     """
     lines = _read_string(clipboard_string)
     return _convert_to_ops(lines)
@@ -125,15 +125,14 @@ def parse_clipboard_string(clipboard_string):
 
 def main(filepath):
     ops = parse_file(filepath)
-    inbox = iter([n for n in "0123"])
+    inbox = iter([1, 5])
     state = cpu.create_state(inbox, ops)
 
     next_state = cpu.tick(state)
     while next_state.pc != -1:
         next_state = cpu.tick(next_state)
 
-    print("OUTBOX:")
-    print(state.outbox)
+    print("OUTBOX:", next_state.outbox)
 
 
 if __name__ == "__main__":
