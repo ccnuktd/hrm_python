@@ -15,6 +15,7 @@ class State:
     pc: program counter
     prev_state: recode the previous state
     """
+
     def __init__(self, inbox, code):
         self.inbox = inbox
         self.code = code
@@ -29,6 +30,7 @@ class ExecutionExceptin(Exception):
     """
     exception handle
     """
+
     def __init__(self, value):
         self.value = value
 
@@ -219,7 +221,7 @@ def tick(given_state):
                 params = command[1:]
 
             if op not in exes:
-                raise ExecutionExceptin("Unkown command " + op)
+                raise ExecutionExceptin("Unknown command " + op)
 
             if params == []:
                 log.debug("Execute {} with no params".format(op))
@@ -237,7 +239,6 @@ def tick(given_state):
                 e = sys.exc_info()[1]
                 log.error("Unexpected error while execution", e)
                 raise e
-
 
             log.debug("pointer: {}".format(state.pointer))
             log.debug("reg state: {}".format(state.regs))

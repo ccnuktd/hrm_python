@@ -4,6 +4,9 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt
 import sys
 
+from hrmengine import cpu
+from util.MyUtil import read_file
+
 
 # Form implementation generated from reading ui file 'main.py'
 #
@@ -17,7 +20,40 @@ class Win(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.u_op_droplist.init_op()
+        # 主动画事件触发
+        self.u_state_btn.clicked['bool'].connect(self.main_process)
+        # TODO:调整动画速度
+        self.speed = 4000
+        # 获取关卡的输入信息
+        self.inbox = read_file("../resources/level/level_1.txt")
+        self.u_input_list.init_inbox(self.inbox)
+
+    def set_slot_func(self):
+        # 设置所有组件的槽函数
+        pass
+
+    def main_process(self):
+        ops = self.u_code_droplist.get_code_list()
+        state = cpu.create_state(self.inbox, ops)
+
+        # UI界面状态显示
+        self.ui_show(state)
+        # CPU状态变化
+        next_state = cpu.tick(state)
+        # while next_state.pc != -1:
+        #     # 在这里触发暂停
+        #
+        #     ui_show(next_state)
+        #     next_state = cpu.tick(next_state)
+        #
+        # print("OUTBOX:", next_state.outbox)
+
+    def ui_show(self, state):
+        command = state.code[state.pc]
+        op = command[0]
+        # ui_show_dict[op](state, command)
+        # 调用某个组件的函数
+        self.u_input_list.on_activate(self.speed)
 
 
 if __name__ == '__main__':

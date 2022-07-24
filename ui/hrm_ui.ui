@@ -34,12 +34,12 @@
      </rect>
     </property>
    </widget>
-   <widget class="QListWidget" name="u_input_list">
+   <widget class="InputListWidget" name="u_input_list">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>75</x>
       <y>90</y>
-      <width>101</width>
+      <width>50</width>
       <height>500</height>
      </rect>
     </property>
@@ -47,9 +47,9 @@
    <widget class="QListWidget" name="u_output_list">
     <property name="geometry">
      <rect>
-      <x>600</x>
+      <x>625</x>
       <y>90</y>
-      <width>101</width>
+      <width>50</width>
       <height>500</height>
      </rect>
     </property>
@@ -78,7 +78,7 @@
 将输入框中的所有东西搬入输出框</string>
     </property>
    </widget>
-   <widget class="QLabel" name="u_input_lable">
+   <widget class="QLabel" name="u_input_label">
     <property name="geometry">
      <rect>
       <x>80</x>
@@ -226,7 +226,29 @@
    <extends>QListWidget</extends>
    <header location="global">MyWidget</header>
   </customwidget>
+  <customwidget>
+   <class>InputListWidget</class>
+   <extends>QListWidget</extends>
+   <header location="global">InputListWidget</header>
+  </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>u_state_btn</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>setAnimated(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>450</x>
+     <y>664</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>537</x>
+     <y>435</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

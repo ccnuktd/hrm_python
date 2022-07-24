@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5 import QtGui
+from PyQt5 import QtGui, QtCore
 from PyQt5.QtWidgets import QWidget, QLabel, QApplication, QVBoxLayout, QHBoxLayout, QListWidget, \
     QListWidgetItem, QAbstractItemView, QInputDialog, QAction, QMessageBox
 from PyQt5.QtCore import QSize, Qt, QRect
@@ -17,6 +17,7 @@ class OperationWidget(QWidget):
         super(OperationWidget, self).__init__()
         self._opreation = QLabel(*operation)
         self._opreation.setFont(QFont("Arial", 15, QFont.Bold))
+        self._opreation.setAlignment(QtCore.Qt.AlignCenter)
         self.init_ui()
 
     def get_operation(self):
@@ -38,6 +39,7 @@ class OperationDropList(QListWidget):
         self.setDragDropMode(QAbstractItemView.DragDrop)
 
         self.signal = MySignal()
+        self.init_op()
 
     def init_op(self):
         list_op = hrmengine.parser.parse_op_list()
@@ -193,6 +195,13 @@ class CodeDropList(QListWidget):
         self.init_menu()
         self.last_row = None
         self.slot = MySignal()
+
+    def get_code_list(self):
+        code_list = []
+        for code in self.get_code():
+            code_list.append(code)
+
+        return code_list
 
     def get_code(self):
         """
