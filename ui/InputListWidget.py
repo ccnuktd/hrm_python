@@ -4,10 +4,12 @@ from PyQt5 import QtGui, QtCore
 from PyQt5.QtCore import QSize, QCoreApplication, QTimer, QTime
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QListWidget, QListWidgetItem, QWidget, QLabel, QHBoxLayout
-from util.MyUtil import read_file
+from util.MyUtil import read_file, flash
+
 
 class IOBlockWidget(QWidget):
     """inbox outbox block"""
+
     def __init__(self, number):
         super(IOBlockWidget, self).__init__()
         self._number = QLabel(str(number))
@@ -46,27 +48,65 @@ class InputListWidget(QListWidget):
     def init_inbox(self, input_list):
         # 从某个地方获取input list内容
         for input in input_list:
-            self.add_item(int(input))
+            self._setItem(int(input))
 
-    def on_activate(self, flash_time):
-        # 选中队首元素，并使其闪烁4次
-        timer = QTime()
-        timer.start()
-        flash_num = 1
-        while timer.elapsed() < flash_time:
-            if timer.elapsed() > flash_time * flash_num / 4:
-                if self.currentRow() == -1:
-                    self.setCurrentRow(0)
-                else:
-                    self.setCurrentRow(-1)
-                flash_num += 1
-            # 保持事件循环的继续运行
-            QCoreApplication.processEvents()
-        else:
-            # 保证最后一次不会选中
-            self.setCurrentRow(-1)
+    def display_func(self):
+        widget = self.itemWidget(self.item(0))
+        widget.setStyleSheet("border: 3px solid red;")
+
+    def clear_func(self):
+        widget = self.itemWidget(self.item(0))
+        widget.setStyleSheet("")
+
+    def inbox(self, flash_time):
+        # 动画效果
+        flash(self.display_func, self.clear_func, flash_time)
         # 删除队首元素
         self.takeItem(0)
+        QCoreApplication.processEvents()
+
+    def mousePressEvent(self, e: QtGui.QMouseEvent) -> None:
+        self.setCurrentRow(-1)
+        e.ignore()
+
+    def mouseReleaseEvent(self, e: QtGui.QMouseEvent) -> None:
+        self.setCurrentRow(-1)
+        e.ignore()
+
+    def dragEnterEvent(self, e: QtGui.QDragEnterEvent) -> None:
+        self.setCurrentRow(-1)
+        e.ignore()
+
+
+class OutputListWidget(QListWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setAcceptDrops(False)
+        self.setDragEnabled(False)
+
+    def _setItem(self, number):
+        item_widget = QListWidgetItem()
+        item_widget.setSizeHint(QSize(0, 50))
+
+        op = IOBlockWidget(number)
+        self.addItem(item_widget)
+        self.setItemWidget(item_widget, op)
+
+    def add_item(self, number):
+        self._setItem(number)
+
+    def display_func(self):
+        widget = self.itemWidget(self.item(self.count() - 1))
+        widget.setStyleSheet("border: 3px solid red;")
+
+    def clear_func(self):
+        widget = self.itemWidget(self.item(self.count() - 1))
+        widget.setStyleSheet("")
+
+    def outbox(self, pointer_value, flash_time):
+        self._setItem(str(pointer_value))
+        flash(self.display_func, self.clear_func, flash_time)
+        QCoreApplication.processEvents()
 
     def mousePressEvent(self, e: QtGui.QMouseEvent) -> None:
         self.setCurrentRow(-1)

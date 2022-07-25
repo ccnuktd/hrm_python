@@ -4,10 +4,11 @@ from PyQt5 import QtGui, QtCore
 from PyQt5.QtWidgets import QWidget, QLabel, QApplication, QVBoxLayout, QHBoxLayout, QListWidget, \
     QListWidgetItem, QAbstractItemView, QInputDialog, QAction, QMessageBox
 from PyQt5.QtCore import QSize, Qt, QRect
-from PyQt5.QtGui import QFont, QDragMoveEvent
+from PyQt5.QtGui import QFont, QDragMoveEvent, QPainter, QColor
 from deprecated.sphinx import deprecated
 from MySignal import MySignal
 import hrmengine.parser
+from util.MyUtil import is_number
 
 
 class OperationWidget(QWidget):
@@ -83,10 +84,6 @@ class CodeWidget(QWidget):
     """a widget with code and param"""
 
     def __init__(self, code_text, param=None):
-        """
-        :param code_text:
-        :param param:
-        """
         super(CodeWidget, self).__init__()
         self.check_operation_type(code_text, param)
         self.mouseDoubleClickEvent = self.mouseDoubleClickEvent
@@ -150,6 +147,11 @@ class CodeWidget(QWidget):
 
     def get_param(self):
         if self._param != None:
+            # text = self._param.text()
+            # if is_number(text):
+            #     return int(text)
+            # else:
+            #     return text
             return self._param.text()
 
     def get_argv(self):

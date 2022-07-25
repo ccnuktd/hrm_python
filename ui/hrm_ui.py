@@ -26,11 +26,11 @@ class Ui_MainWindow(object):
         self.u_input_list = InputListWidget(self.centralwidget)
         self.u_input_list.setGeometry(QtCore.QRect(75, 90, 50, 500))
         self.u_input_list.setObjectName("u_input_list")
-        self.u_output_list = QtWidgets.QListWidget(self.centralwidget)
+        self.u_output_list = OutputListWidget(self.centralwidget)
         self.u_output_list.setGeometry(QtCore.QRect(625, 90, 50, 500))
         self.u_output_list.setObjectName("u_output_list")
-        self.u_register_group = QtWidgets.QTableWidget(self.centralwidget)
-        self.u_register_group.setGeometry(QtCore.QRect(220, 400, 301, 190))
+        self.u_register_group = RegisterTableWidget(self.centralwidget)
+        self.u_register_group.setGeometry(QtCore.QRect(220, 400, 302, 162))
         self.u_register_group.setObjectName("u_register_group")
         self.u_register_group.setColumnCount(0)
         self.u_register_group.setRowCount(0)
@@ -53,7 +53,7 @@ class Ui_MainWindow(object):
         self.u_register_group_label.setGeometry(QtCore.QRect(350, 370, 41, 16))
         self.u_register_group_label.setObjectName("u_register_group_label")
         self.layoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.layoutWidget.setGeometry(QtCore.QRect(250, 630, 239, 25))
+        self.layoutWidget.setGeometry(QtCore.QRect(250, 620, 239, 25))
         self.layoutWidget.setObjectName("layoutWidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.layoutWidget)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
@@ -76,7 +76,7 @@ class Ui_MainWindow(object):
         self.u_pointer_label = QtWidgets.QLabel(self.layoutWidget1)
         self.u_pointer_label.setObjectName("u_pointer_label")
         self.verticalLayout.addWidget(self.u_pointer_label)
-        self.u_pointer = QtWidgets.QLabel(self.layoutWidget1)
+        self.u_pointer = Pointer(self.layoutWidget1)
         self.u_pointer.setObjectName("u_pointer")
         self.verticalLayout.addWidget(self.u_pointer)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -106,5 +106,7 @@ class Ui_MainWindow(object):
         self.u_state_btn.setText(_translate("MainWindow", "开始"))
         self.u_pointer_label.setText(_translate("MainWindow", "pointer"))
         self.u_pointer.setText(_translate("MainWindow", "number"))
-from InputListWidget import InputListWidget
+from InputListWidget import InputListWidget, OutputListWidget
 from MyWidget import CodeDropList, OperationDropList
+from Pointer import Pointer
+from RegisterTableWidget import RegisterTableWidget

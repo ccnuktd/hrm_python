@@ -184,8 +184,8 @@ def _show_error(error):
 
 def load_level(level):
     __welcome_text.configure(text=level.welcome_message)
-    level._state.level = level
-    update(level._state)
+    level.state.level = level
+    update(level.state)
 
 
 def update(state):

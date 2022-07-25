@@ -14,7 +14,7 @@ class Inbox(unittest.TestCase):
         ]
         state = cpu.create_state(inbox, ops)
         state = cpu.tick(state)
-        self.assertEqual(list(state.inbox), [])
+        self.assertEqual(list(state.set_value), [])
         self.assertEqual(state.pointer, 1)
         self.assertEqual(state.pc, 1)
 

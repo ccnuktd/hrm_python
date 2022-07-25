@@ -86,7 +86,19 @@ def showJumpnUi(state, command):
     pass
 
 
-
+ui_show_dict = {
+    'INBOX': showInboxUi,
+    'OUTBOX': showOutboxUi,
+    'COPYFROM': showCopyfromUi,
+    'COPYTO': showCopytoUi,
+    'ADD': showAddUi,
+    'SUB': showSubUi,
+    'BUMPUP': showBumpupUi,
+    'BUMPDN': showBumpdnUi,
+    'JUMP': showJumpUi,
+    'JUMPZ': showJumpzUi,
+    'JUMPN': showJumpnUi
+}
 
 
 

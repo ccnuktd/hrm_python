@@ -1,7 +1,10 @@
+from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QApplication, QMainWindow, QAbstractItemView, QHBoxLayout, QVBoxLayout
+
+import hrmengine.parser
 from hrm_ui import Ui_MainWindow
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QCoreApplication
 import sys
 
 from hrmengine import cpu
@@ -23,37 +26,124 @@ class Win(QMainWindow, Ui_MainWindow):
         # 主动画事件触发
         self.u_state_btn.clicked['bool'].connect(self.main_process)
         # TODO:调整动画速度
-        self.speed = 4000
+        self.flash_time = 2000
         # 获取关卡的输入信息
         self.inbox = read_file("../resources/level/level_1.txt")
         self.u_input_list.init_inbox(self.inbox)
+        # 初始化寄存器组
+        self.u_register_group.init_ui(2, 5, 60)
+        # table listWidget值设置
+        # self.u_register_group.set_value(1, 1, 1)
+        self.last_item = None
 
     def set_slot_func(self):
         # 设置所有组件的槽函数
         pass
 
+    def set_code_color(self, row):
+        if self.last_item != None:
+            self.last_item.setBackground(QColor("white"))
+        this_item = self.u_code_droplist.item(row)
+        this_item.setBackground(QColor("red"))
+        self.last_item = this_item
+
+    def input_flash(self, next_state):
+        self.u_input_list.inbox(self.flash_time)
+        self.u_pointer.set_value(next_state.pointer, self.flash_time)
+
+    def output_flash(self, next_state):
+        self.u_output_list.outbox(next_state.outbox[-1], self.flash_time)
+        self.u_pointer.outbox(self.flash_time)
+
+    def copyto_flash(self, state, id):
+        self.u_pointer.display_value(self.flash_time)
+        self.u_register_group.display_set_value(id, state.pointer, self.flash_time)
+
+    def copyfrom_flash(self, id):
+        val = self.u_register_group.display_get_value(id, self.flash_time)
+        self.u_pointer.set_value(val, self.flash_time)
+
+    def add_flash(self, state, id):
+        self.u_pointer.display_value(self.flash_time)
+        val = self.u_register_group.display_get_value(id, self.flash_time)
+        new_val = state.pointer + val
+        self.u_pointer.set_value(new_val, self.flash_time)
+
+    def sub_flash(self, state, id):
+        self.u_pointer.display_value(self.flash_time)
+        val = self.u_register_group.display_get_value(id, self.flash_time)
+        new_val = state.pointer - val
+        self.u_pointer.set_value(new_val, self.flash_time)
+
+    def bumpup_flash(self, id):
+        val = self.u_register_group.display_get_value(id, self.flash_time)
+        new_val = val + 1
+        self.u_register_group.display_set_value(id, new_val, self.flash_time)
+        self.u_pointer.set_value(new_val, self.flash_time)
+
+    def bumpdn_flash(self, id):
+        val = self.u_register_group.display_get_value(id, self.flash_time)
+        new_val = val - 1
+        self.u_register_group.display_set_value(id, new_val, self.flash_time)
+        self.u_pointer.set_value(new_val, self.flash_time)
+
+    def label_flash(self):
+        pass
+
+    def jump_flash(self):
+        pass
+
     def main_process(self):
         ops = self.u_code_droplist.get_code_list()
-        state = cpu.create_state(self.inbox, ops)
+        state = cpu.create_state(iter(self.inbox), ops)
 
-        # UI界面状态显示
-        self.ui_show(state)
         # CPU状态变化
         next_state = cpu.tick(state)
-        # while next_state.pc != -1:
-        #     # 在这里触发暂停
-        #
-        #     ui_show(next_state)
-        #     next_state = cpu.tick(next_state)
-        #
-        # print("OUTBOX:", next_state.outbox)
+        # UI界面状态显示
+        self.ui_show(next_state.prev_state, next_state)
+        while next_state.pc != -1:
+            # 在这里触发暂停
+            next_state = cpu.tick(next_state)
+            self.ui_show(next_state.prev_state, next_state)
 
-    def ui_show(self, state):
+    def ui_show(self, state, next_state):
+        if state.pc >= len(state.code) or state.pc < 0:
+            return
         command = state.code[state.pc]
         op = command[0]
+        param = None
+        if len(command) > 1:
+            param = command[1]
+
+        self.set_code_color(state.pc)
+
+        if op == 'INBOX':
+            self.input_flash(next_state)
+        elif op == 'OUTBOX':
+            self.output_flash(next_state)
+        elif op == 'COPYTO':
+            self.copyto_flash(state, int(param))
+        elif op == 'COPYFROM':
+            self.copyfrom_flash(int(param))
+        elif op == 'ADD':
+            self.add_flash(state, int(param))
+        elif op == 'SUB':
+            self.sub_flash(state, int(param))
+        elif op == 'BUMPUP':
+            self.bumpup_flash(int(param))
+        elif op == 'BUMPDN':
+            self.bumpdn_flash(int(param))
+        elif hrmengine.parser.is_label(op):
+            self.label_flash()
+        elif op == 'JUMP':
+            self.jump_flash()
+        elif op == 'JUMPN':
+            self.jump_flash()
+        elif op == 'JUMPZ':
+            self.jump_flash()
+
         # ui_show_dict[op](state, command)
         # 调用某个组件的函数
-        self.u_input_list.on_activate(self.speed)
 
 
 if __name__ == '__main__':
