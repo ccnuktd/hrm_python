@@ -105,7 +105,7 @@ class Ui_MainWindow(object):
         self.u_pause_btn.setText(_translate("MainWindow", "暂停"))
         self.u_state_btn.setText(_translate("MainWindow", "开始"))
         self.u_pointer_label.setText(_translate("MainWindow", "pointer"))
-        self.u_pointer.setText(_translate("MainWindow", "number"))
+        self.u_pointer.setText(_translate("MainWindow", "None"))
 from InputListWidget import InputListWidget, OutputListWidget
 from MyWidget import CodeDropList, OperationDropList
 from Pointer import Pointer

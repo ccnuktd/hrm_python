@@ -1,13 +1,14 @@
 from PyQt5.QtGui import QColor
-from PyQt5.QtWidgets import QApplication, QMainWindow, QAbstractItemView, QHBoxLayout, QVBoxLayout
+from PyQt5.QtWidgets import QApplication, QMainWindow, QAbstractItemView, QHBoxLayout, QVBoxLayout, QMessageBox
+from hrmengine import parser
 
-import hrmengine.parser
 from hrm_ui import Ui_MainWindow
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt, QCoreApplication
 import sys
 
 from hrmengine import cpu
+from hrmengine.cpu import ExecutionExceptin
 from util.MyUtil import read_file
 
 
@@ -26,14 +27,11 @@ class Win(QMainWindow, Ui_MainWindow):
         # 主动画事件触发
         self.u_state_btn.clicked['bool'].connect(self.main_process)
         # TODO:调整动画速度
-        self.flash_time = 2000
-        # 获取关卡的输入信息
-        self.inbox = read_file("../resources/level/level_1.txt")
-        self.u_input_list.init_inbox(self.inbox)
-        # 初始化寄存器组
-        self.u_register_group.init_ui(2, 5, 60)
+        self.flash_time = 1000
         # table listWidget值设置
-        # self.u_register_group.set_value(1, 1, 1)
+        # self.u_register_group.set_value(4, 0)
+        # self.u_register_group.set_value(5, 1)
+        self.pre_process()
         self.last_item = None
 
     def set_slot_func(self):
@@ -93,18 +91,38 @@ class Win(QMainWindow, Ui_MainWindow):
     def jump_flash(self):
         pass
 
-    def main_process(self):
-        ops = self.u_code_droplist.get_code_list()
-        state = cpu.create_state(iter(self.inbox), ops)
+    def pre_process(self):
+        # 获取关卡的输入信息
+        self.inbox = read_file("../resources/level/level_1.txt")
+        self.u_input_list.init_inbox(self.inbox)
+        # 初始化寄存器组
+        self.u_register_group.init_ui(2, 5, 60)
+        self.u_output_list.init_outbox()
 
-        # CPU状态变化
-        next_state = cpu.tick(state)
-        # UI界面状态显示
-        self.ui_show(next_state.prev_state, next_state)
-        while next_state.pc != -1:
-            # 在这里触发暂停
-            next_state = cpu.tick(next_state)
+    def main_process(self):
+        # 获取代码集
+        ops = self.u_code_droplist.get_code_list()
+        error_msgs = parser.compiling(ops)
+        if error_msgs is not '':
+            # 弹窗提示并return
+            QMessageBox().warning(self, "编译失败", error_msgs)
+            return
+        try:
+            state = cpu.create_state(iter(self.inbox), ops)
+
+            # CPU状态变化
+            next_state = cpu.tick(state)
+            # UI界面状态显示
             self.ui_show(next_state.prev_state, next_state)
+            while next_state.pc != -1:
+                # 在这里触发暂停
+                next_state = cpu.tick(next_state)
+                self.ui_show(next_state.prev_state, next_state)
+        except ExecutionExceptin as e:
+            QMessageBox().warning(self, "运行失败", e.__str__())
+            return
+        finally:
+            self.pre_process()
 
     def ui_show(self, state, next_state):
         if state.pc >= len(state.code) or state.pc < 0:
@@ -133,7 +151,7 @@ class Win(QMainWindow, Ui_MainWindow):
             self.bumpup_flash(int(param))
         elif op == 'BUMPDN':
             self.bumpdn_flash(int(param))
-        elif hrmengine.parser.is_label(op):
+        elif parser.is_label(op):
             self.label_flash()
         elif op == 'JUMP':
             self.jump_flash()

@@ -1,6 +1,6 @@
 import logging as log
 from copy import deepcopy
-
+from util import MyUtil
 import sys
 
 
@@ -47,8 +47,10 @@ def getRegIndexToRef(ref, regs):
     """
     if ref.startswith('['):
         return int(regs[int(ref[1:-1])])
-    else:
+    elif MyUtil.is_int(ref):
         return int(ref)
+    else:
+        raise ExecutionExceptin(str(ref) + " is not an address")
 
 
 def exeInbox(state, params):
@@ -84,7 +86,10 @@ def exeCopyto(state, params):
     load register value to pointer
     """
     index = getRegIndexToRef(params[0], state.regs)
-    state.regs[index] = state.pointer
+    if state.pointer is not None:
+        state.regs[index] = state.pointer
+    else:
+        raise ExecutionExceptin("'None' can't copy to an register")
 
 
 def exeAdd(state, params):

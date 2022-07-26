@@ -46,6 +46,7 @@ class InputListWidget(QListWidget):
         self._setItem(number)
 
     def init_inbox(self, input_list):
+        self.clear()
         # 从某个地方获取input list内容
         for input in input_list:
             self._setItem(int(input))
@@ -83,6 +84,9 @@ class OutputListWidget(QListWidget):
         super().__init__(parent)
         self.setAcceptDrops(False)
         self.setDragEnabled(False)
+
+    def init_outbox(self):
+        self.clear()
 
     def _setItem(self, number):
         item_widget = QListWidgetItem()

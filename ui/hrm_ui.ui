@@ -196,7 +196,7 @@
      <item>
       <widget class="Pointer" name="u_pointer">
        <property name="text">
-        <string>number</string>
+        <string>None</string>
        </property>
       </widget>
      </item>

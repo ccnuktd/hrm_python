@@ -56,6 +56,12 @@ def is_valid_op(op):
         return False
 
 
+def is_jump_op(opcode):
+    if opcode == 'JUMP' or opcode == 'JUMPN' or opcode == 'JUMPZ':
+        return True
+    return False
+
+
 def _read_file(filepath):
     # read file:
     with open(filepath) as f:
@@ -88,6 +94,43 @@ def _convert_to_ops(lines):
 def _get_op(lines):
     ops = list(map(_to_op, lines))
     return list(ops)
+
+
+def compiling(code):
+    """
+    返回编译错误列表，如果编译成功，列表为空
+    """
+    label = {}
+    line = 0
+    error_msgs = ""
+
+    # 检查指令合法性
+    for command in code:
+        line += 1
+        if is_valid_op(command):
+            if cpu.isLabel(command[0]):
+                label_text = command[0][:-1]
+                label[label_text] = 0
+        else:
+            # 指令不合法
+            error_msg = "line " + str(line) + ": 指令未设置参数\n"
+            error_msgs += error_msg
+
+    # 检查label
+    line = 0
+    for command in code:
+        line += 1
+        if is_valid_op(command) and is_jump_op(command[0]):
+            # 为jump指令
+            label_text = command[1]
+            if label_text in label.keys():
+                label[label_text] += 1
+            else:
+                # label不存在
+                error_msg = "line " + str(line) + "：跳转标志 " + str(label_text) + "不存在\n"
+                error_msgs += error_msg
+
+    return error_msgs
 
 
 def parse_file(filepath):

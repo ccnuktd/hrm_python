@@ -19,7 +19,6 @@ def read_file(filepath):
     return ret_list
 
 
-
 def flash(display_func, clear_func, flash_time, flash_cnt=4):
     """
     设置执行的动画效果
@@ -46,16 +45,28 @@ def flash(display_func, clear_func, flash_time, flash_cnt=4):
     clear_func()
 
 
-def is_number(s):
+def is_number(number):
     try:  # 如果能运行float(s)语句，返回True（字符串s是浮点数）
-        float(s)
+        float(number)
         return True
     except ValueError:  # ValueError为Python的一种标准异常，表示"传入无效的参数"
         pass  # 如果引发了ValueError这种异常，不做任何事情（pass：不做任何事情，一般用做占位语句）
     try:
         import unicodedata  # 处理ASCii码的包
-        unicodedata.numeric(s)  # 把一个表示数字的字符串转换为浮点数返回的函数
+        unicodedata.numeric(number)  # 把一个表示数字的字符串转换为浮点数返回的函数
         return True
     except (TypeError, ValueError):
         pass
     return False
+
+
+def is_int(number):
+    result = False
+    try:
+        n = float(number)
+        if n.is_integer() and str(number).count('.') == 0:
+            result = True
+    except:
+        pass
+
+    return result

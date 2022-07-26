@@ -146,12 +146,7 @@ class CodeWidget(QWidget):
         return self._code_text.text()
 
     def get_param(self):
-        if self._param != None:
-            # text = self._param.text()
-            # if is_number(text):
-            #     return int(text)
-            # else:
-            #     return text
+        if self._param != None and self._param.text() != '':
             return self._param.text()
 
     def get_argv(self):
@@ -302,6 +297,11 @@ class CodeDropList(QListWidget):
 
     def dropEvent(self, e: QtGui.QDropEvent) -> None:
         e.ignore()
+
+    def mouseReleaseEvent(self, e: QtGui.QMouseEvent) -> None:
+        self.setCurrentRow(-1)
+        e.ignore()
+
 
 
 class OpCodeWidget(QWidget):

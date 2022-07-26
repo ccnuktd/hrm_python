@@ -44,6 +44,7 @@ class RegisterTableWidget(QTableWidget):
         self.last_item = None
 
     def init_ui(self, row_num, col_num, width):
+        self.clear()
         self.verticalHeader().setVisible(False)  # 隐藏垂直表头
         self.horizontalHeader().setVisible(False)  # 隐藏水平表头
         self.setRowCount(row_num)
@@ -94,6 +95,6 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     table = RegisterTableWidget()
     table.init_ui(2, 5, 60)
-    table.set_value(1, 1, 1)
+    table.set_value(1, 1)
     table.show()
     app.exec_()
