@@ -1,5 +1,3 @@
-import enum
-
 from PyQt5 import QtGui, QtCore
 from PyQt5.QtWidgets import QWidget, QLabel, QHBoxLayout, QListWidget, \
     QListWidgetItem, QAbstractItemView, QInputDialog, QAction, QMessageBox
@@ -7,6 +5,7 @@ from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QFont, QDragMoveEvent
 from MySignal import MySignal
 import hrmengine.parser
+from util.MyEnum import OpType
 
 
 class OperationWidget(QWidget):
@@ -85,12 +84,6 @@ class OperationDropList(QListWidget):
 
     def dropEvent(self, e: QtGui.QDropEvent) -> None:
         e.ignore()
-
-
-class OpType(enum.Enum):
-    OP_WITHOUT_PARAM = 0
-    OP_WITH_PARAM = 1
-    LABEL = 2
 
 
 class CodeWidget(QWidget):

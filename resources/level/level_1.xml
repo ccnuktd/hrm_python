@@ -13,6 +13,6 @@
     <register>
     </register>
     <desc>关卡描述：
-将输入框中的所有东西搬入输出框
+将inbox中的每个数都乘以40，让后把结果放入outbox栏中
     </desc>
 </level>

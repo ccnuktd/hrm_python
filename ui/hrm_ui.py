@@ -109,8 +109,8 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.u_input_label.setText(_translate("MainWindow", "输入框"))
-        self.u_output_label.setText(_translate("MainWindow", "输出框"))
+        self.u_input_label.setText(_translate("MainWindow", "inbox"))
+        self.u_output_label.setText(_translate("MainWindow", "outbox"))
         self.u_operation_label.setText(_translate("MainWindow", "操作框"))
         self.u_code_label.setText(_translate("MainWindow", "代码框"))
         self.u_register_group_label.setText(_translate("MainWindow", "地址"))
@@ -127,7 +127,7 @@ class Ui_MainWindow(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'SimSun\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-from InputListWidget import InputListWidget, OutputListWidget
-from MyWidget import CodeDropList, OperationDropList
+from CodeOpListWidget import CodeDropList, OperationDropList
+from IOListWidget import InputListWidget, OutputListWidget
 from Pointer import Pointer
 from RegisterTableWidget import RegisterTableWidget
