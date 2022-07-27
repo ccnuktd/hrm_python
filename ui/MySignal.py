@@ -1,5 +1,5 @@
 class MySignal(object):
-    """set完成后只能get一次的信号量"""
+    """semaphore: get_item could only get once after set_item"""
     _item = None
 
     def get_item(self):
@@ -20,4 +20,3 @@ if __name__ == "__main__":
     b.set_item(2)
     print(a.get_item())
     print(a.get_item())
-

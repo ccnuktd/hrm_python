@@ -1,4 +1,5 @@
 from PyQt5.QtCore import QCoreApplication, QTime
+import xml.etree.ElementTree
 
 
 def read_file(filepath):
@@ -21,11 +22,11 @@ def read_file(filepath):
 
 def flash(display_func, clear_func, flash_time, flash_cnt=4):
     """
-    设置执行的动画效果
-    :param display_func:无参数的显示函数
-    :param clear_func:无参数的消除显示函数
-    :param flash_time:显示时间
-    :param flash_cnt:闪烁次数
+    animation flash
+    :param display_func:
+    :param clear_func:
+    :param flash_time:
+    :param flash_cnt:
     """
     timer = QTime()
     timer.start()
@@ -40,20 +41,20 @@ def flash(display_func, clear_func, flash_time, flash_cnt=4):
                 clear_func()
                 flag = True
             flash_num += 1
-        # 保持事件循环的继续运行
+        # remain event loop
         QCoreApplication.processEvents()
     clear_func()
 
 
 def is_number(number):
-    try:  # 如果能运行float(s)语句，返回True（字符串s是浮点数）
+    try:
         float(number)
         return True
-    except ValueError:  # ValueError为Python的一种标准异常，表示"传入无效的参数"
-        pass  # 如果引发了ValueError这种异常，不做任何事情（pass：不做任何事情，一般用做占位语句）
+    except ValueError:
+        pass
     try:
-        import unicodedata  # 处理ASCii码的包
-        unicodedata.numeric(number)  # 把一个表示数字的字符串转换为浮点数返回的函数
+        import unicodedata
+        unicodedata.numeric(number)
         return True
     except (TypeError, ValueError):
         pass
@@ -70,3 +71,51 @@ def is_int(number):
         pass
 
     return result
+
+
+class ParserException(Exception):
+    """
+    exception handle
+    """
+
+    def __init__(self, value):
+        self.value = value
+
+    def __str__(self):
+        return repr(self.value)
+
+
+def get_level_data(file_path):
+    """get input information for this level"""
+    level = xml.etree.ElementTree.parse(file_path).getroot()
+    # get inbox data
+    inbox_data = []
+    for inbox in level.findall("inbox"):
+        for data in inbox:
+            if is_int(data.text):
+                inbox_data.append(int(data.text))
+            else:
+                raise ParserException("inbox data could only be integer.")
+
+    # get register group data
+    register_data = []
+    for register in level.findall("register"):
+        for data in register:
+            if data[0] is None:
+                register_data = None
+                break
+            if is_int(data[0].text):
+                id = int(data[0].text)
+            else:
+                raise ParserException("inbox data could only be integer.")
+            if is_int(data[1].text):
+                value = int(data[1].text)
+            else:
+                raise ParserException("inbox data could only be integer.")
+            register_data.append([id, value])
+
+    # get level description
+    desc_data = ""
+    for desc in level.findall("desc"):
+        desc_data += desc.text
+    return inbox_data, register_data, desc_data

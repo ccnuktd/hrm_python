@@ -48,7 +48,7 @@ def is_valid_op(op):
     if len(op) == 0 or not is_known_op(op[0]):
         return False
 
-    if needs_param(op[0]) and len(op) == 2:
+    if needs_param(op[0]) and (len(op) == 2 and op[1]):
         return True
     elif not needs_param(op[0]) and len(op) == 1:
         return True
@@ -98,13 +98,13 @@ def _get_op(lines):
 
 def compiling(code):
     """
-    返回编译错误列表，如果编译成功，列表为空
+    returns the compile error string, which is empty if compiling succeeded
     """
     label = {}
     line = 0
     error_msgs = ""
 
-    # 检查指令合法性
+    # check command validity
     for command in code:
         line += 1
         if is_valid_op(command):
@@ -112,22 +112,22 @@ def compiling(code):
                 label_text = command[0][:-1]
                 label[label_text] = 0
         else:
-            # 指令不合法
-            error_msg = "line " + str(line) + ": 指令未设置参数\n"
+            # invalid command
+            error_msg = "line " + str(line) + ": lack of param\n"
             error_msgs += error_msg
 
-    # 检查label
+    # check label
     line = 0
     for command in code:
         line += 1
         if is_valid_op(command) and is_jump_op(command[0]):
-            # 为jump指令
+            # jump command
             label_text = command[1]
             if label_text in label.keys():
                 label[label_text] += 1
             else:
-                # label不存在
-                error_msg = "line " + str(line) + "：跳转标志 " + str(label_text) + "不存在\n"
+                # label isn't existed
+                error_msg = "line " + str(line) + "：label " + str(label_text) + "is not existed\n"
                 error_msgs += error_msg
 
     return error_msgs
@@ -151,8 +151,7 @@ def parse_op_list():
 
     :return: list of operations
     """
-    lines = _read_file("../resources/op.txt")
-    return _get_op(lines)
+    return _read_file("../resources/op.txt")
 
 
 def parse_clipboard_string(clipboard_string):
@@ -164,6 +163,13 @@ def parse_clipboard_string(clipboard_string):
     """
     lines = _read_string(clipboard_string)
     return _convert_to_ops(lines)
+
+
+def parse_address(state, address):
+    if address.startswith('['):
+        return int(state.regs[int(address[1:-1])])
+    else:
+        return int(address)
 
 
 def main(filepath):

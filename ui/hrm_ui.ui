@@ -64,20 +64,6 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPlainTextEdit" name="u_desc">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>50</y>
-      <width>221</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="plainText">
-     <string>关卡描述：
-将输入框中的所有东西搬入输出框</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="u_input_label">
     <property name="geometry">
      <rect>
@@ -146,9 +132,9 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>250</x>
-      <y>620</y>
-      <width>239</width>
+      <x>210</x>
+      <y>610</y>
+      <width>320</width>
       <height>25</height>
      </rect>
     </property>
@@ -168,9 +154,16 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="u_state_btn">
+      <widget class="QPushButton" name="u_goon_btn">
        <property name="text">
-        <string>开始</string>
+        <string>继续</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="u_exit_btn">
+       <property name="text">
+        <string>终止</string>
        </property>
       </widget>
      </item>
@@ -201,6 +194,68 @@
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QPushButton" name="u_start_btn">
+    <property name="geometry">
+     <rect>
+      <x>900</x>
+      <y>670</y>
+      <width>121</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>开始运行</string>
+    </property>
+   </widget>
+   <widget class="QSlider" name="u_speed_slider">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>700</y>
+      <width>171</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>10</number>
+    </property>
+    <property name="maximum">
+     <number>50</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="u_speed_label">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>700</y>
+      <width>54</width>
+      <height>12</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>动画速度</string>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="u_desc">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>30</y>
+      <width>256</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="html">
+     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'SimSun'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

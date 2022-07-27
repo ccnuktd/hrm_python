@@ -21,7 +21,7 @@ class MySignal(QObject):
         self.item = item
 
     def send(self):
-        # 发送信号
+        # emit
         if self.state == OPEN:
             self.send_msg.emit(SET, self.item)
             self.state = CLOSE

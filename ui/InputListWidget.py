@@ -1,71 +1,86 @@
-from time import sleep
-
 from PyQt5 import QtGui, QtCore
-from PyQt5.QtCore import QSize, QCoreApplication, QTimer, QTime
+from PyQt5.QtCore import QSize, QCoreApplication
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QListWidget, QListWidgetItem, QWidget, QLabel, QHBoxLayout
-from util.MyUtil import read_file, flash
+from util.MyUtil import flash
 
 
 class IOBlockWidget(QWidget):
-    """inbox outbox block"""
+    """inner block in input box and output box"""
 
-    def __init__(self, number):
-        super(IOBlockWidget, self).__init__()
-        self._number = QLabel(str(number))
-        self._number.setFont(QFont("Arial", 10, QFont.Black))
-        self._number.setAlignment(QtCore.Qt.AlignCenter)
-        self.init_ui()
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self._number = None
 
     def get_number(self):
+        """get number of type int"""
         return int(self._number.text())
 
-    def init_ui(self):
+    def set_number(self, number: int):
+        self._number = QLabel(str(number))
+
+    def set_font(self, font=QFont("Arial", 10, QFont.Black)):
+        self._number.setFont(font)
+
+    def set_layout(self):
+        self._number.setAlignment(QtCore.Qt.AlignCenter)
         layout = QHBoxLayout()
         layout.addWidget(self._number)
         self.setLayout(layout)
 
+    def set_all(self, number):
+        """simple setup"""
+        self.set_number(number)
+        self.set_font()
+        self.set_layout()
+
 
 class InputListWidget(QListWidget):
-    """UI input list widget"""
+    """input box"""
 
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setAcceptDrops(False)
         self.setDragEnabled(False)
 
-    def _setItem(self, number):
+    def _addItem(self, number):
         item_widget = QListWidgetItem()
+        # set inner item height=50
         item_widget.setSizeHint(QSize(0, 50))
 
-        op = IOBlockWidget(number)
+        op = IOBlockWidget()
+        op.set_all(number)
+
         self.addItem(item_widget)
         self.setItemWidget(item_widget, op)
 
     def add_item(self, number):
-        self._setItem(number)
+        self._addItem(number)
 
     def init_inbox(self, input_list):
         self.clear()
-        # 从某个地方获取input list内容
+        # input is int or intString
         for input in input_list:
-            self._setItem(int(input))
+            self._addItem(int(input))
 
     def display_func(self):
+        """animation display"""
         widget = self.itemWidget(self.item(0))
         widget.setStyleSheet("border: 3px solid red;")
 
     def clear_func(self):
+        """animation clear"""
         widget = self.itemWidget(self.item(0))
         widget.setStyleSheet("")
 
     def inbox(self, flash_time):
-        # 动画效果
         flash(self.display_func, self.clear_func, flash_time)
-        # 删除队首元素
+        # takeItem is used to delete item
         self.takeItem(0)
+        # refresh event loop and prevent the GUI from freezing
         QCoreApplication.processEvents()
 
+    # the following three functions are used to disable selection
     def mousePressEvent(self, e: QtGui.QMouseEvent) -> None:
         self.setCurrentRow(-1)
         e.ignore()
@@ -88,18 +103,21 @@ class OutputListWidget(QListWidget):
     def init_outbox(self):
         self.clear()
 
-    def _setItem(self, number):
+    def _addItem(self, number):
         item_widget = QListWidgetItem()
         item_widget.setSizeHint(QSize(0, 50))
 
-        op = IOBlockWidget(number)
+        op = IOBlockWidget()
+        op.set_all(number)
+
         self.addItem(item_widget)
         self.setItemWidget(item_widget, op)
 
     def add_item(self, number):
-        self._setItem(number)
+        self._addItem(number)
 
     def display_func(self):
+        # display the last item
         widget = self.itemWidget(self.item(self.count() - 1))
         widget.setStyleSheet("border: 3px solid red;")
 
@@ -108,10 +126,11 @@ class OutputListWidget(QListWidget):
         widget.setStyleSheet("")
 
     def outbox(self, pointer_value, flash_time):
-        self._setItem(str(pointer_value))
+        self._addItem(int(pointer_value))
         flash(self.display_func, self.clear_func, flash_time)
         QCoreApplication.processEvents()
 
+    # the following three functions are used to disable selection
     def mousePressEvent(self, e: QtGui.QMouseEvent) -> None:
         self.setCurrentRow(-1)
         e.ignore()
@@ -124,15 +143,3 @@ class OutputListWidget(QListWidget):
         self.setCurrentRow(-1)
         e.ignore()
 
-
-if __name__ == "__main__":
-    # ops = parse_file(filepath)
-    # inbox = iter([1, 5])
-    # state = cpu.create_state(inbox, ops)
-    #
-    # next_state = cpu.tick(state)
-    # while next_state.pc != -1:
-    #     next_state = cpu.tick(next_state)
-    #
-    # print("OUTBOX:", next_state.outbox)
-    pass

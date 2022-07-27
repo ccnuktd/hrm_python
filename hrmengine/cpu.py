@@ -53,6 +53,15 @@ def getRegIndexToRef(ref, regs):
         raise ExecutionExceptin(str(ref) + " is not an address")
 
 
+def setReg(state, rules):
+    """
+    load register group state
+    """
+    if rules is not None:
+        for rule in rules:
+            state.regs[rule[0]] = rule[1]
+
+
 def exeInbox(state, params):
     """
     put the head of input box to pointer
@@ -199,8 +208,10 @@ exes = {
 knownOps = exes.keys()
 
 
-def create_state(inbox, code):
-    return State(inbox, code)
+def create_state(inbox, code, rules=None):
+    cpu = State(inbox, code)
+    setReg(cpu, rules)
+    return cpu
 
 
 def tick(given_state):

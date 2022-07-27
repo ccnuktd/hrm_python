@@ -1,14 +1,15 @@
 import sys
 
 from PyQt5 import QtCore, QtGui
-from PyQt5.QtCore import QSize, Qt, QCoreApplication
-from PyQt5.QtGui import QFont, QPalette
-from PyQt5.QtWidgets import QTableWidget, QWidget, QLabel, QVBoxLayout, QApplication, QTableWidgetItem
+from PyQt5.QtCore import QCoreApplication
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import QTableWidget, QWidget, QLabel, QVBoxLayout, QApplication
 
 from util.MyUtil import flash
 
 
 class RegisterItem(QWidget):
+    """each register in register group"""
     def __init__(self, parent=None):
         super().__init__(parent)
         self._value = QLabel()
@@ -39,18 +40,20 @@ class RegisterItem(QWidget):
 
 
 class RegisterTableWidget(QTableWidget):
+    """register group"""
     def __init__(self, parent=None):
         super().__init__(parent)
         self.last_item = None
 
     def init_ui(self, row_num, col_num, width):
         self.clear()
-        self.verticalHeader().setVisible(False)  # 隐藏垂直表头
-        self.horizontalHeader().setVisible(False)  # 隐藏水平表头
+        self.verticalHeader().setVisible(False)  # Hide vertical headers
+        self.horizontalHeader().setVisible(False)  # Hide horizontal headers
         self.setRowCount(row_num)
         self.setColumnCount(col_num)
         for row in range(row_num):
-            self.setRowHeight(row, 4 / 3 * width)
+            # register's h:w = 4:3
+            self.setRowHeight(row, 4 * width // 3)
             for i in range(col_num):
                 self.setColumnWidth(i, width)
                 new_item = RegisterItem()
@@ -58,36 +61,40 @@ class RegisterTableWidget(QTableWidget):
                 self.setCellWidget(row, i, new_item)
 
     def set_value(self, id, val):
+        """use id to set value"""
         col_num = self.columnCount()
         cell_item = self.cellWidget(id // col_num, id % col_num)
         cell_item.set_value(str(val))
         self.last_item = cell_item
 
     def get_value(self, id):
+        """use id to get value"""
         col_num = self.columnCount()
         cell_item = self.cellWidget(id // col_num, id % col_num)
         self.last_item = cell_item
         return int(cell_item.get_value())
 
-    def display_func(self):
-        self.last_item.setStyleSheet("border: 3px solid red;")
+    def _display_func(self):
+        self.last_item.setStyleSheet("border: 1px solid red;")
 
-    def clear_func(self):
+    def _clear_func(self):
         self.last_item.setStyleSheet("")
 
     def display_set_value(self, id, val, flash_time):
+        """set value animation"""
         self.set_value(id, val)
-        flash(self.display_func, self.clear_func, flash_time)
+        flash(self._display_func, self._clear_func, flash_time)
         QCoreApplication.processEvents()
 
     def display_get_value(self, id, flash_time):
+        """get value animation"""
         val = self.get_value(id)
-        flash(self.display_func, self.clear_func, flash_time)
+        flash(self._display_func, self._clear_func, flash_time)
         QCoreApplication.processEvents()
         return val
 
     def mousePressEvent(self, a0: QtGui.QMouseEvent) -> None:
-        # 无法通过点击选中
+        # disable selected
         self.setCurrentCell(-1, -1)
 
 
