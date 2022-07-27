@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<level>
+    <inbox>
+        <data>1</data>
+        <data>7</data>
+        <data>-3</data>
+        <data>-8</data>
+        <data>9</data>
+        <data>9</data>
+        <data>2</data>
+        <data>3</data>
+    </inbox>
+    <register>
+    </register>
+    <desc>关卡描述：
+将输入框中的所有东西搬入输出框
+    </desc>
+</level>
