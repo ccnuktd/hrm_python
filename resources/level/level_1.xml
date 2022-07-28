@@ -11,8 +11,26 @@
         <data>3</data>
     </inbox>
     <register>
+<!--        <data>-->
+<!--            <id>4</id>-->
+<!--            <value>4</value>-->
+<!--        </data>-->
+<!--        <data>-->
+<!--            <id>3</id>-->
+<!--            <value>1</value>-->
+<!--        </data>-->
     </register>
     <desc>关卡描述：
 将inbox中的每个数都乘以40，让后把结果放入outbox栏中
     </desc>
+    <outbox>
+        <data>40</data>
+        <data>280</data>
+        <data>-120</data>
+        <data>-320</data>
+        <data>360</data>
+        <data>360</data>
+        <data>80</data>
+        <data>120</data>
+    </outbox>
 </level>

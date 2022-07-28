@@ -107,15 +107,25 @@ def get_level_data(file_path):
             if is_int(data[0].text):
                 id = int(data[0].text)
             else:
-                raise ParserException("inbox data could only be integer.")
+                raise ParserException("register id could only be integer.")
             if is_int(data[1].text):
                 value = int(data[1].text)
             else:
-                raise ParserException("inbox data could only be integer.")
+                raise ParserException("register value could only be integer.")
             register_data.append([id, value])
 
     # get level description
     desc_data = ""
     for desc in level.findall("desc"):
         desc_data += desc.text
-    return inbox_data, register_data, desc_data
+
+    # get outbox data
+    outbox_data = []
+    for outbox in level.findall("outbox"):
+        for data in outbox:
+            if is_int(data.text):
+                outbox_data.append(int(data.text))
+            else:
+                raise ParserException("outbox data could only be integer.")
+
+    return inbox_data, register_data, desc_data, outbox_data

@@ -1,3 +1,5 @@
+import operator
+
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from hrmengine import parser
@@ -139,11 +141,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.u_register_group.set_value(*data)
 
     def load_level_info(self, file_path):
-        self.inbox, self.register_data, desc = get_level_data(file_path)
+        self.inbox, self.register_data, desc, self.outbox = get_level_data(file_path)
         self.u_desc.setText(desc)
 
     def reset_pointer(self):
         self.u_pointer.reset()
+
+    def check_pass(self):
+        if operator.eq(self.state.outbox, self.outbox):
+            QMessageBox().information(self, "congratulations", "you pass this level")
+        else:
+            QMessageBox().information(self, "sorry", "please try again")
 
     def process(self):
         while True:
@@ -167,9 +175,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         # show UI state
                         self.ui_show(self.state.prev_state, self.state)
                     else:
+                        self.check_pass()
                         break
                 except ExecutionExceptin as e:
-                    QMessageBox().warning(self, "runtime error", e.__str__())
+                    if e.__str__() == "'INBOX has no more items'":
+                        # if inbox is empty, check if pass this level
+                        self.check_pass()
+                    else:
+                        QMessageBox().warning(self, "runtime error", e.__str__())
                     break
             elif self.process_state == State.STOP:
                 QCoreApplication.processEvents()
