@@ -100,7 +100,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>操作框</string>
+     <string>op box</string>
     </property>
    </widget>
    <widget class="QLabel" name="u_code_label">
@@ -108,12 +108,12 @@
      <rect>
       <x>940</x>
       <y>20</y>
-      <width>41</width>
+      <width>51</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>代码框</string>
+     <string>code box</string>
     </property>
    </widget>
    <widget class="QLabel" name="u_register_group_label">
@@ -121,12 +121,12 @@
      <rect>
       <x>350</x>
       <y>370</y>
-      <width>41</width>
+      <width>61</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>地址</string>
+     <string>register</string>
     </property>
    </widget>
    <widget class="QWidget" name="layoutWidget">
@@ -142,28 +142,28 @@
      <item>
       <widget class="QPushButton" name="u_next_btn">
        <property name="text">
-        <string>下一步</string>
+        <string>next</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="u_pause_btn">
        <property name="text">
-        <string>暂停</string>
+        <string>stop</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="u_goon_btn">
        <property name="text">
-        <string>继续</string>
+        <string>go on</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="u_exit_btn">
        <property name="text">
-        <string>终止</string>
+        <string>terminate</string>
        </property>
       </widget>
      </item>
@@ -205,7 +205,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>开始运行</string>
+     <string>start</string>
     </property>
    </widget>
    <widget class="QSlider" name="u_speed_slider">
@@ -230,14 +230,14 @@
    <widget class="QLabel" name="u_speed_label">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>193</x>
       <y>700</y>
-      <width>54</width>
-      <height>12</height>
+      <width>71</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>动画速度</string>
+     <string>flash speed</string>
     </property>
    </widget>
    <widget class="QTextBrowser" name="u_desc">
