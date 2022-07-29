@@ -75,9 +75,7 @@ class OperationDropList(QListWidget):
             now_item = self.itemWidget(self.item(self.now_row))
             if now_item is not None:
                 op = now_item.get_operation()
-            else:
-                op = self.item(self.now_row).text()
-            self.signal.set_item(op)
+                self.signal.set_item(op)
             e.accept()
         else:
             e.ignore()
@@ -268,18 +266,22 @@ class CodeDropList(QListWidget):
         if self.forbidden_drag_flag is False:
             self.now_row = self.row(self.itemAt(e.pos()))
 
+            # now_row recode
+            if self.now_row == -1:
+                self.now_row = 0 if self.count() == 0 else self.count() - 1
+
             op = self.slot.get_item()
             if op is not None:
                 # drag a operation into a code box
-                self.now_row = self.count()
-                self.add_item(*[op, None])
+                self.insert_item(self.now_row, *[op, None])
                 # update old_item
+                self.last_row = self.now_row
                 self.old_item = self.itemWidget(self.item(self.now_row))
                 # update currentRow
                 self.setCurrentRow(self.now_row)
 
-            # if you drag, recode last_row postion
-            if self.last_row != self.currentRow():
+            # if you drag, record last_row postion
+            if self.last_row != self.currentRow() and self.currentRow() != -1:
                 self.last_row = self.currentRow()
                 self.old_item = self.itemWidget(self.item(self.last_row))
 
@@ -289,8 +291,8 @@ class CodeDropList(QListWidget):
 
     def dragMoveEvent(self, e: QDragMoveEvent):
         if self.forbidden_drag_flag is False:
-            if self.now_row != -1 and self.currentRow() != -1:
-                # exchange block position
+            if self.now_row != self.last_row:
+                # exchange position
                 # delete last_row item
                 self.takeItem(self.last_row)
 
