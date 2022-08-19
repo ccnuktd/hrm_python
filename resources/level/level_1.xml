@@ -20,8 +20,8 @@
 <!--            <value>1</value>-->
 <!--        </data>-->
     </register>
-    <desc>level description：
-Multiply each number in inbox by 40 and place the result in the outbox
+    <desc>关卡描述：
+将输入框中的所有数字变成原来的40倍，并在输出框中输出
     </desc>
     <outbox>
         <data>40</data>

@@ -23,6 +23,9 @@
       <height>600</height>
      </rect>
     </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
    </widget>
    <widget class="OperationDropList" name="u_op_droplist">
     <property name="geometry">
@@ -32,6 +35,9 @@
       <width>140</width>
       <height>730</height>
      </rect>
+    </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
     </property>
    </widget>
    <widget class="InputListWidget" name="u_input_list">
@@ -67,40 +73,52 @@
    <widget class="QLabel" name="u_input_label">
     <property name="geometry">
      <rect>
-      <x>80</x>
+      <x>88</x>
       <y>60</y>
       <width>41</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>inbox</string>
+<<<<<<< HEAD
+     <string>输入框</string>
+=======
+     <string>输入</string>
+>>>>>>> CCNUKTD-1 <translate-program-into-chinese>
     </property>
    </widget>
    <widget class="QLabel" name="u_output_label">
     <property name="geometry">
      <rect>
-      <x>630</x>
+      <x>635</x>
       <y>60</y>
       <width>41</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>outbox</string>
+<<<<<<< HEAD
+     <string>输出框</string>
+=======
+     <string>输出</string>
+>>>>>>> CCNUKTD-1 <translate-program-into-chinese>
     </property>
    </widget>
    <widget class="QLabel" name="u_operation_label">
     <property name="geometry">
      <rect>
-      <x>790</x>
+      <x>780</x>
       <y>20</y>
-      <width>41</width>
-      <height>16</height>
+      <width>51</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>op box</string>
+<<<<<<< HEAD
+     <string>操作框</string>
+=======
+     <string>操作语句</string>
+>>>>>>> CCNUKTD-1 <translate-program-into-chinese>
     </property>
    </widget>
    <widget class="QLabel" name="u_code_label">
@@ -108,12 +126,16 @@
      <rect>
       <x>940</x>
       <y>20</y>
-      <width>51</width>
+      <width>41</width>
+<<<<<<< HEAD
       <height>16</height>
+=======
+      <height>20</height>
+>>>>>>> CCNUKTD-1 <translate-program-into-chinese>
      </rect>
     </property>
     <property name="text">
-     <string>code box</string>
+     <string>代码框</string>
     </property>
    </widget>
    <widget class="QLabel" name="u_register_group_label">
@@ -121,12 +143,16 @@
      <rect>
       <x>350</x>
       <y>370</y>
-      <width>61</width>
+      <width>41</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>register</string>
+<<<<<<< HEAD
+     <string>地址</string>
+=======
+     <string>寄存器</string>
+>>>>>>> CCNUKTD-1 <translate-program-into-chinese>
     </property>
    </widget>
    <widget class="QWidget" name="layoutWidget">
@@ -142,28 +168,32 @@
      <item>
       <widget class="QPushButton" name="u_next_btn">
        <property name="text">
-        <string>next</string>
+        <string>下一步</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="u_pause_btn">
        <property name="text">
-        <string>stop</string>
+<<<<<<< HEAD
+        <string>暂停</string>
+=======
+        <string>停止</string>
+>>>>>>> CCNUKTD-1 <translate-program-into-chinese>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="u_goon_btn">
        <property name="text">
-        <string>go on</string>
+        <string>继续</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="u_exit_btn">
        <property name="text">
-        <string>terminate</string>
+        <string>终止</string>
        </property>
       </widget>
      </item>
@@ -174,7 +204,7 @@
      <rect>
       <x>350</x>
       <y>150</y>
-      <width>44</width>
+      <width>50</width>
       <height>61</height>
      </rect>
     </property>
@@ -182,7 +212,7 @@
      <item>
       <widget class="QLabel" name="u_pointer_label">
        <property name="text">
-        <string>pointer</string>
+        <string>总线数据</string>
        </property>
       </widget>
      </item>
@@ -205,7 +235,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>start</string>
+     <string>开始运行</string>
     </property>
    </widget>
    <widget class="QSlider" name="u_speed_slider">
@@ -230,14 +260,14 @@
    <widget class="QLabel" name="u_speed_label">
     <property name="geometry">
      <rect>
-      <x>193</x>
+      <x>210</x>
       <y>700</y>
-      <width>71</width>
-      <height>20</height>
+      <width>54</width>
+      <height>12</height>
      </rect>
     </property>
     <property name="text">
-     <string>flash speed</string>
+     <string>动画速度</string>
     </property>
    </widget>
    <widget class="QTextBrowser" name="u_desc">
@@ -274,17 +304,17 @@ p, li { white-space: pre-wrap; }
   <customwidget>
    <class>CodeDropList</class>
    <extends>QListWidget</extends>
-   <header location="global">CodeOpListWidget</header>
+   <header location="global">MyWidget</header>
   </customwidget>
   <customwidget>
    <class>OperationDropList</class>
    <extends>QListWidget</extends>
-   <header location="global">CodeOpListWidget</header>
+   <header location="global">MyWidget</header>
   </customwidget>
   <customwidget>
    <class>InputListWidget</class>
    <extends>QListWidget</extends>
-   <header location="global">IOListWidget</header>
+   <header location="global">InputListWidget</header>
   </customwidget>
   <customwidget>
    <class>Pointer</class>
@@ -294,7 +324,7 @@ p, li { white-space: pre-wrap; }
   <customwidget>
    <class>OutputListWidget</class>
    <extends>QListWidget</extends>
-   <header location="global">IOListWidget</header>
+   <header location="global">InputListWidget</header>
   </customwidget>
   <customwidget>
    <class>RegisterTableWidget</class>
