@@ -150,9 +150,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def check_pass(self):
         if operator.eq(self.state.outbox, self.outbox):
-            QMessageBox().information(self, "congratulations", "you pass this level")
+            QMessageBox().information(self, "恭喜通关", "你通过了这一关！")
         else:
-            QMessageBox().information(self, "sorry", "please try again")
+            QMessageBox().information(self, "通关失败", "请再次尝试")
 
     def process(self):
         while True:
@@ -161,7 +161,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 ops = self.u_code_droplist.get_code_list()
                 error_msgs = parser.compiling(ops)
                 if error_msgs is not '':
-                    QMessageBox().warning(self, "compiling error", error_msgs)
+                    QMessageBox().warning(self, "程序解释错误", error_msgs)
                     # reset drag mode
                     self.u_code_droplist.reset_drag()
                     self.reset_pointer()
@@ -183,7 +183,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                         # if inbox is empty, check if pass this level
                         self.check_pass()
                     else:
-                        QMessageBox().warning(self, "runtime error", e.__str__())
+                        QMessageBox().warning(self, "运行时出错", e.__str__())
                     break
             elif self.process_state == State.STOP:
                 QCoreApplication.processEvents()
@@ -198,7 +198,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                     else:
                         break
                 except ExecutionExceptin as e:
-                    QMessageBox().warning(self, "runtime error", e.__str__())
+                    QMessageBox().warning(self, "运行时出错", e.__str__())
                     break
             elif self.process_state == State.EXIT:
                 break

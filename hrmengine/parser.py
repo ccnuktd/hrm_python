@@ -113,7 +113,7 @@ def compiling(code):
                 label[label_text] = 0
         else:
             # invalid command
-            error_msg = "line " + str(line) + ": lack of param\n"
+            error_msg = "第" + str(line) + "行：" + "缺少参数\n"
             error_msgs += error_msg
 
     # check label
@@ -127,7 +127,7 @@ def compiling(code):
                 label[label_text] += 1
             else:
                 # label isn't existed
-                error_msg = "line " + str(line) + "：label " + str(label_text) + "is not existed\n"
+                error_msg = "第" + str(line) + "行：" + "缺少跳转的label"
                 error_msgs += error_msg
 
     return error_msgs
