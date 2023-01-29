@@ -1,36 +1,11 @@
-<?xml version="1.0"?>
 <level>
     <inbox>
-        <data>1</data>
-        <data>7</data>
-        <data>-3</data>
-        <data>-8</data>
-        <data>9</data>
-        <data>9</data>
-        <data>2</data>
-        <data>3</data>
-    </inbox>
+        <data>-1</data><data>-4</data><data>-3</data><data>2</data><data>8</data><data>2</data><data>-4</data><data>3</data></inbox>
     <register>
-<!--        <data>-->
-<!--            <id>4</id>-->
-<!--            <value>4</value>-->
-<!--        </data>-->
-<!--        <data>-->
-<!--            <id>3</id>-->
-<!--            <value>1</value>-->
-<!--        </data>-->
     </register>
-    <desc>level description：
+    <desc>level description:
 Multiply each number in inbox by 40 and place the result in the outbox
     </desc>
     <outbox>
-        <data>40</data>
-        <data>280</data>
-        <data>-120</data>
-        <data>-320</data>
-        <data>360</data>
-        <data>360</data>
-        <data>80</data>
-        <data>120</data>
-    </outbox>
+        <data>-40</data><data>-160</data><data>-120</data><data>80</data><data>320</data><data>80</data><data>-160</data><data>120</data></outbox>
 </level>

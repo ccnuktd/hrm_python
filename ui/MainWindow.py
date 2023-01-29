@@ -12,6 +12,7 @@ import sys
 from hrmengine import cpu
 from hrmengine.cpu import ExecutionExceptin
 from hrmengine.parser import parse_address
+from resources.level.update_level_1 import update_level_data
 from util.MyUtil import get_level_data
 from util.MyEnum import State
 
@@ -138,9 +139,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.u_register_group.init_ui(2, 5, 60)
         if self.register_data is not None:
             for data in self.register_data:
-                self.u_register_group.set_value(*data)
+                self.u_register_group.set_value(data)
 
     def load_level_info(self, file_path):
+        update_level_data(file_path)
         self.inbox, self.register_data, desc, self.outbox = get_level_data(file_path)
         self.u_desc.setText(desc)
 
