@@ -156,10 +156,22 @@ class Ui_MainWindow(object):
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1075, 22))
         self.menubar.setObjectName("menubar")
+        self.menulevel = QtWidgets.QMenu(self.menubar)
+        self.menulevel.setObjectName("menulevel")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        self.actionlevel1 = QtWidgets.QAction(MainWindow)
+        self.actionlevel1.setObjectName("actionlevel1")
+        self.actionlevel2 = QtWidgets.QAction(MainWindow)
+        self.actionlevel2.setObjectName("actionlevel2")
+        self.actionlevel3 = QtWidgets.QAction(MainWindow)
+        self.actionlevel3.setObjectName("actionlevel3")
+        self.menulevel.addAction(self.actionlevel1)
+        self.menulevel.addAction(self.actionlevel2)
+        self.menulevel.addAction(self.actionlevel3)
+        self.menubar.addAction(self.menulevel.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -185,6 +197,10 @@ class Ui_MainWindow(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Arial\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'SimSun\'; font-size:9pt;\"><br /></p></body></html>"))
+        self.menulevel.setTitle(_translate("MainWindow", "level"))
+        self.actionlevel1.setText(_translate("MainWindow", "level1"))
+        self.actionlevel2.setText(_translate("MainWindow", "level2"))
+        self.actionlevel3.setText(_translate("MainWindow", "level3"))
 from CodeOpListWidget import CodeDropList, OperationDropList
 from IOListWidget import InputListWidget, OutputListWidget
 from Pointer import Pointer

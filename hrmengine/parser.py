@@ -144,14 +144,15 @@ def parse_file(filepath):
     return _convert_to_ops(lines)
 
 
-def parse_op_list():
+def parse_op_list(level_num):
     """
-    Parse "../resources/op.txt" and convert to a list of operation
+    Parse "../resources/op_{num}.txt" and convert to a list of operation
     ['ADD', 'SUB']
 
     :return: list of operations
     """
-    return _read_file("../resources/op.txt")
+    file_path = "resources/level/op_" + str(level_num) + ".txt"
+    return _read_file(file_path)
 
 
 def parse_clipboard_string(clipboard_string):

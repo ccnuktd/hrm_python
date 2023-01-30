@@ -4,7 +4,7 @@ from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
 from hrmengine import parser
 
-from hrm_ui import Ui_MainWindow
+from ui.hrm_ui import Ui_MainWindow
 from PyQt5 import QtCore
 from PyQt5.QtCore import QCoreApplication
 import sys
@@ -12,8 +12,8 @@ import sys
 from hrmengine import cpu
 from hrmengine.cpu import ExecutionExceptin
 from hrmengine.parser import parse_address
-from resources.level.update_level_1 import update_level_data
-from util.MyUtil import get_level_data
+from util.UpdateLevelDate import update_level_data
+from util.MyUtil import get_level_data, get_level_path
 from util.MyEnum import State
 
 
@@ -26,11 +26,11 @@ from util.MyEnum import State
 
 
 class GameWindow(QMainWindow, Ui_MainWindow):
-    def __init__(self, level_path="../resources/level/level_1.xml"):
+    def __init__(self, level_num=1):
         super().__init__()
         self.setupUi(self)
         # load level info
-        self.load_level_info(level_path)
+        self.load_level_info(level_num)
         # Button event triggering
         self.u_start_btn.clicked['bool'].connect(self.start_event)
         self.u_next_btn.clicked['bool'].connect(self.next_event)
@@ -141,9 +141,10 @@ class GameWindow(QMainWindow, Ui_MainWindow):
             for data in self.register_data:
                 self.u_register_group.set_value(data)
 
-    def load_level_info(self, file_path):
-        update_level_data(file_path)
-        self.inbox, self.register_data, desc, self.outbox = get_level_data(file_path)
+    def load_level_info(self, level_num):
+        update_level_data(get_level_path(level_num))
+        self.inbox, self.register_data, desc, self.outbox = get_level_data(get_level_path(level_num))
+        self.u_op_droplist.set_level_num(level_num)
         self.u_desc.setText(desc)
 
     def reset_pointer(self):

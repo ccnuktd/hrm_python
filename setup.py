@@ -1,4 +1,4 @@
-from distutils.core import setup
+from ui.setup import setup
 
 setup(
     name='hrm',
@@ -6,7 +6,7 @@ setup(
     packages=['hrmengine'],
     url='',
     license='',
-    author='Maic Siemering',
-    author_email='eruvanos@ewetel.net',
+    author='Yu Huang',
+    author_email='nana414021069@163.com',
     description=''
 )

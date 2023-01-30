@@ -48,12 +48,17 @@ class OperationDropList(QListWidget):
         self.setDragDropMode(QAbstractItemView.DragDrop)
 
         self.signal = MySignal()
+        # level default is 1
+        self.level_num = 1
         self.init_op()
 
     def init_op(self):
-        list_op = hrmengine.parser.parse_op_list()
+        list_op = hrmengine.parser.parse_op_list(self.level_num)
         for op in list_op:
             self.add_item(op)
+
+    def set_level_num(self, num):
+        self.level_num = num
 
     def _addItem(self, operation):
         item_widget = QListWidgetItem()

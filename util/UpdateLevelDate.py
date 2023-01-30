@@ -1,38 +1,17 @@
-# 1. 以level_1的inbox 8位数为种子生成新的8位inbox
-#   A. 取出level_1的inbox 8位数
-#   B. 算法8位数生成新的8位数
-# 2. 通过算法描述，通过inbox生成outbox
-# 3. 将新的inbox和outbox写入xml文件
 import xml.etree.ElementTree
+from util.GenerateLevelData import gen_data_level_1
 from util.MyUtil import is_int, ParserException
-import numpy as np
-
-
-def gen_data_level_1(inbox_data):
-    """
-        generate new inbox_data and outbox from inbox_data
-        """
-    num = 0
-    for data in inbox_data:
-        num *= 10
-        num += abs(data)
-
-    # generate random integer
-    bg = np.random.SFC64(num)
-    rng = np.random.Generator(bg)
-
-    for index, _ in enumerate(inbox_data):
-        inbox_data[index] = rng.integers(-9, 10)
-
-    outbox_data = []
-    for data in inbox_data:
-        outbox_data.append(40 * data)
-
-    return inbox_data, outbox_data
 
 
 def update_level_data(file_path):
     """update new level data [xml] from former level data"""
+    """
+    # 1. 以level_1的inbox 8位数为种子生成新的8位inbox
+    #   A. 取出level_1的inbox 8位数
+    #   B. 算法8位数生成新的8位数
+    # 2. 通过算法描述，通过inbox生成outbox
+    # 3. 将新的inbox和outbox写入xml文件
+    """
     tree = xml.etree.ElementTree.parse(file_path)
     level = tree.getroot()
     # get inbox data
@@ -67,6 +46,3 @@ def update_level_data(file_path):
 
     tree.write(file_path)
 
-
-if __name__ == '__main__':
-    update_level_data("level_1.xml")

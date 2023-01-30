@@ -129,3 +129,11 @@ def get_level_data(file_path):
                 raise ParserException("outbox data could only be integer.")
 
     return inbox_data, register_data, desc_data, outbox_data
+
+
+def get_level_path(level_num):
+    """
+    get level path from level num
+    """
+    file_path = "resources/level/"
+    return file_path + 'level_' + str(level_num) + '.xml'
