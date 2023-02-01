@@ -50,7 +50,7 @@ class OperationDropList(QListWidget):
         self.signal = MySignal()
         # level default is 1
         self.level_num = 1
-        self.init_op()
+
 
     def init_op(self):
         list_op = hrmengine.parser.parse_op_list(self.level_num)

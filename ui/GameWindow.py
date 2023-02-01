@@ -1,13 +1,11 @@
 import operator
 
 from PyQt5.QtGui import QColor
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from hrmengine import parser
 
 from ui.hrm_ui import Ui_MainWindow
-from PyQt5 import QtCore
-from PyQt5.QtCore import QCoreApplication
-import sys
+from PyQt5.QtCore import QCoreApplication, pyqtSignal
 
 from hrmengine import cpu
 from hrmengine.cpu import ExecutionExceptin
@@ -26,9 +24,10 @@ from util.MyEnum import State
 
 
 class GameWindow(QMainWindow, Ui_MainWindow):
-    def __init__(self, level_num=1):
+    def __init__(self, setup, level_num=1):
         super().__init__()
         self.setupUi(self)
+        self.setup = setup
         # load level info
         self.load_level_info(level_num)
         # Button event triggering
@@ -145,6 +144,7 @@ class GameWindow(QMainWindow, Ui_MainWindow):
         update_level_data(get_level_path(level_num))
         self.inbox, self.register_data, desc, self.outbox = get_level_data(get_level_path(level_num))
         self.u_op_droplist.set_level_num(level_num)
+        self.u_op_droplist.init_op()
         self.u_desc.setText(desc)
 
     def reset_pointer(self):
@@ -153,6 +153,8 @@ class GameWindow(QMainWindow, Ui_MainWindow):
     def check_pass(self):
         if operator.eq(self.state.outbox, self.outbox):
             QMessageBox().information(self, "congratulations", "you pass this level")
+            # 触发setup的levelup函数
+            self.setup.level_up()
         else:
             QMessageBox().information(self, "sorry", "please try again")
 
@@ -245,12 +247,3 @@ class GameWindow(QMainWindow, Ui_MainWindow):
             self.jump_flash()
         elif op == 'JUMPZ':
             self.jump_flash()
-
-
-if __name__ == '__main__':
-    # make the program support high-resolution display
-    QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
-    app = QApplication(sys.argv)
-    window = GameWindow()
-    window.show()
-    sys.exit(app.exec_())

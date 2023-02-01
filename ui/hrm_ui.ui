@@ -367,9 +367,6 @@ p, li { white-space: pre-wrap; }
     <property name="title">
      <string>level</string>
     </property>
-    <addaction name="actionlevel1"/>
-    <addaction name="actionlevel2"/>
-    <addaction name="actionlevel3"/>
    </widget>
    <addaction name="menulevel"/>
   </widget>
@@ -387,6 +384,11 @@ p, li { white-space: pre-wrap; }
   <action name="actionlevel3">
    <property name="text">
     <string>level3</string>
+   </property>
+  </action>
+  <action name="actionsdf">
+   <property name="text">
+    <string>sdf</string>
    </property>
   </action>
  </widget>

@@ -1,11 +1,11 @@
 <level>
     <inbox>
-        <data>-1</data><data>-4</data><data>-3</data><data>2</data><data>8</data><data>2</data><data>-4</data><data>3</data></inbox>
+        <data>-8</data><data>1</data><data>-4</data><data>7</data><data>-3</data><data>3</data><data>-8</data><data>4</data></inbox>
     <register>
     </register>
     <desc>level description:
-Multiply each number in inbox by 40 and place the result in the outbox
+place inbox into the outbox
     </desc>
     <outbox>
-        <data>-40</data><data>-160</data><data>-120</data><data>80</data><data>320</data><data>80</data><data>-160</data><data>120</data></outbox>
+        <data>-8</data><data>1</data><data>-4</data><data>7</data><data>-3</data><data>3</data><data>-8</data><data>4</data></outbox>
 </level>

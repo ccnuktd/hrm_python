@@ -19,6 +19,7 @@ def gen_data_level_1(inbox_data):
 
     outbox_data = []
     for data in inbox_data:
-        outbox_data.append(40 * data)
+        # outbox_data.append(40 * data)
+        outbox_data.append(data)
 
     return inbox_data, outbox_data
