@@ -2,7 +2,7 @@ from PyQt5 import QtGui, QtCore
 from PyQt5.QtCore import QSize, QCoreApplication
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QListWidget, QListWidgetItem, QWidget, QLabel, QHBoxLayout
-from util.MyUtil import flash
+from util.MyUtil import flash, is_int
 
 
 class IOBlockWidget(QWidget):
@@ -14,10 +14,13 @@ class IOBlockWidget(QWidget):
 
     def get_number(self):
         """get number of type int"""
-        return int(self._number.text())
+        return self._number.text()
 
-    def set_number(self, number: int):
-        self._number = QLabel(str(number))
+    def set_number(self, number):
+        if is_int(number):
+            self._number = QLabel(str(number))
+        else:
+            self._number = QLabel(number)
 
     def set_font(self, font=QFont("Arial", 10, QFont.Black)):
         self._number.setFont(font)
@@ -126,7 +129,7 @@ class OutputListWidget(QListWidget):
         widget.setStyleSheet("")
 
     def outbox(self, pointer_value, flash_time):
-        self._addItem(int(pointer_value))
+        self._addItem(pointer_value)
         flash(self.display_func, self.clear_func, flash_time)
         QCoreApplication.processEvents()
 

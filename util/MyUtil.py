@@ -85,9 +85,12 @@ class ParserException(Exception):
         return repr(self.value)
 
 
-def get_level_data(file_path):
+def get_level_data(level_num):
     """get input information for this level"""
-    level = xml.etree.ElementTree.parse(file_path).getroot()
+    file_path = get_level_path(level_num)
+    parser = xml.etree.ElementTree.XMLParser(encoding="utf-8")
+    level = xml.etree.ElementTree.parse(file_path, parser).getroot()
+    # level = xml.etree.ElementTree.parse(file_path).getroot()
     # get inbox data
     inbox_data = []
     for inbox in level.findall("inbox"):
@@ -111,7 +114,7 @@ def get_level_data(file_path):
             if is_int(data[1].text):
                 value = int(data[1].text)
             else:
-                raise ParserException("register value could only be integer.")
+                value = data[1].text
             register_data.append([id, value])
 
     # get level description
@@ -126,9 +129,15 @@ def get_level_data(file_path):
             if is_int(data.text):
                 outbox_data.append(int(data.text))
             else:
-                raise ParserException("outbox data could only be integer.")
+                outbox_data.append(data.text)
 
-    return inbox_data, register_data, desc_data, outbox_data
+    # get level speak
+    words = []
+    for _ in level.findall("speak"):
+        for word in _:
+            words.append(word)
+
+    return inbox_data, register_data, desc_data, outbox_data, words
 
 
 def get_level_path(level_num):

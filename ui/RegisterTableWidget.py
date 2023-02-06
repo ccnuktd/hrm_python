@@ -36,7 +36,7 @@ class RegisterItem(QWidget):
         self._value.setStyleSheet("color: rgb(255, 0, 0);")
 
     def get_value(self):
-        return int(self._value.text())
+        return self._value.text()
 
 
 class RegisterTableWidget(QTableWidget):
@@ -72,7 +72,7 @@ class RegisterTableWidget(QTableWidget):
         col_num = self.columnCount()
         cell_item = self.cellWidget(id // col_num, id % col_num)
         self.last_item = cell_item
-        return int(cell_item.get_value())
+        return cell_item.get_value()
 
     def _display_func(self):
         self.last_item.setStyleSheet("border: 1px solid red;")

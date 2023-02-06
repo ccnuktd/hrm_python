@@ -1,9 +1,9 @@
 import xml.etree.ElementTree
-from util.GenerateLevelData import gen_data_level_1
-from util.MyUtil import is_int, ParserException
+from util.GenerateLevelData import gen_data_level
+from util.MyUtil import is_int, ParserException, get_level_path
 
 
-def update_level_data(file_path):
+def update_level_data(level_num):
     """update new level data [xml] from former level data"""
     """
     # 1. 以level_1的inbox 8位数为种子生成新的8位inbox
@@ -12,7 +12,9 @@ def update_level_data(file_path):
     # 2. 通过算法描述，通过inbox生成outbox
     # 3. 将新的inbox和outbox写入xml文件
     """
-    tree = xml.etree.ElementTree.parse(file_path)
+    file_path = get_level_path(level_num)
+    parser = xml.etree.ElementTree.XMLParser(encoding='utf-8')
+    tree = xml.etree.ElementTree.parse(file_path, parser=parser)
     level = tree.getroot()
     # get inbox data
     inbox_data = []
@@ -23,7 +25,7 @@ def update_level_data(file_path):
             else:
                 raise ParserException("inbox data could only be integer.")
 
-    inbox_data, outbox_data = gen_data_level_1(inbox_data)
+    inbox_data, outbox_data = gen_data_level(level_num, inbox_data)
 
     for data in level[0].findall("data"):
         level[0].remove(data)
@@ -44,5 +46,5 @@ def update_level_data(file_path):
         contain = xml.etree.ElementTree.SubElement(outbox_contain, 'data')
         contain.text = str(data)
 
-    tree.write(file_path)
+    tree.write(file_path, encoding="utf8")
 

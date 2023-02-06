@@ -30,7 +30,7 @@ class SetUp:
 
         self.level.actionlevel1.triggered.connect(lambda: self.switch_level(1))
         self.level.actionlevel2.triggered.connect(lambda: self.switch_level(2))
-        # self.level.actionlevel3.triggered.connect(self.switch_level_3)
+        self.level.actionlevel3.triggered.connect(lambda: self.switch_level(3))
         # self.level.actionlevel4.triggered.connect(self.switch_level_4)
         # self.level.actionlevel5.triggered.connect(self.switch_level_5)
         # self.level.actionlevel6.triggered.connect(self.switch_level_6)
@@ -55,8 +55,8 @@ class SetUp:
         self.level.menulevel.addAction(self.level.actionlevel1)
         if self.max_level_num > 1:
             self.level.menulevel.addAction(self.level.actionlevel2)
-        # if self.max_level_num > 2:
-        #     self.level.menulevel.addAction(self.level.actionlevel3)
+        if self.max_level_num > 2:
+            self.level.menulevel.addAction(self.level.actionlevel3)
         # if self.max_level_num > 3:
         #     self.level.meulevel.addAction(self.level.actionlevel4)
         # if self.max_level_num > 4:
@@ -86,6 +86,7 @@ class SetUp:
         self.level = GameWindow(self, self.now_level)
         self.level.actionlevel1.triggered.connect(lambda: self.switch_level(1))
         self.level.actionlevel2.triggered.connect(lambda: self.switch_level(2))
+        self.level.actionlevel2.triggered.connect(lambda: self.switch_level(3))
 
         # dynamically generate the level
         self.display_level_info()
@@ -105,7 +106,6 @@ class SetUp:
         self.saveinfo.save_level_info(self.now_level)
         # switch level
         self.switch_level(self.now_level)
-
 
 
 def setup(name='hrm', version='0.1', packages=['hrmengine'], url='', license='', author='Yu Huang',
