@@ -1,11 +1,13 @@
 import operator
+import os
 
-from PyQt5.QtGui import QColor
-from PyQt5.QtWidgets import QMainWindow, QMessageBox
+from PyQt5.QtGui import QColor, QFont
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QLabel
+
 from hrmengine import parser
 
 from ui.hrm_ui import Ui_MainWindow
-from PyQt5.QtCore import QCoreApplication, pyqtSignal
+from PyQt5.QtCore import QCoreApplication, Qt
 
 from hrmengine import cpu
 from hrmengine.cpu import ExecutionExceptin
@@ -36,10 +38,15 @@ class GameWindow(QMainWindow, Ui_MainWindow):
         self.u_pause_btn.clicked['bool'].connect(self.stop_event)
         self.u_goon_btn.clicked['bool'].connect(self.goon_evnet)
         self.u_exit_btn.clicked['bool'].connect(self.exit_event)
+        # 绑定信号槽
+        self.pushButtonPrev.clicked.connect(self.stackedWidget.slideInPrev)
+        self.pushButtonNext.clicked.connect(self.stackedWidget.slideInNext)
         # set slider bar
         self.u_speed_slider.valueChanged.connect(self.change_speed)
         self.origin_flash_time = 10000
         self.flash_time = self.origin_flash_time // self.u_speed_slider.value()
+
+
 
         self.pre_process()
         self.last_item = None
@@ -138,14 +145,33 @@ class GameWindow(QMainWindow, Ui_MainWindow):
         self.u_register_group.init_ui(2, 5, 60)
         if self.register_data is not None:
             for data in self.register_data:
-                self.u_register_group.set_value(data)
+                self.u_register_group.set_value(data[0], data[1])
 
     def load_level_info(self, level_num):
-        update_level_data(get_level_path(level_num))
-        self.inbox, self.register_data, desc, self.outbox = get_level_data(get_level_path(level_num))
+        update_level_data(level_num)
+        self.inbox, self.register_data, desc, self.outbox, self.words = get_level_data(level_num)
         self.u_op_droplist.set_level_num(level_num)
         self.u_op_droplist.init_op()
         self.u_desc.setText(desc)
+
+        # 关卡引导文字初始化
+        for word in self.words:
+            text_content = QLabel(self.stackedWidget)
+            # 设置字体
+            font = QFont()
+            font.setFamily("Arial")
+            font.setPointSize(10)
+            text_content.setFont(font)
+            # 文字换行
+            text_content.setWordWrap(True)
+            # 文字居中
+            # text_content.setAlignment(Qt.AlignCenter)
+            text_content.setText(word.text)
+            self.stackedWidget.addWidget(text_content)
+        # 设置换页速度
+        self.stackedWidget.setSpeed(100)
+        # 设置播放方式
+        self.stackedWidget.setOrientation(Qt.Vertical)
 
     def reset_pointer(self):
         self.u_pointer.reset()
