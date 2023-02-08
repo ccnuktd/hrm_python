@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf8'?>
+<level>
+    <inbox>
+        <data>3</data><data>6</data><data>-5</data><data>-3</data><data>-5</data><data>-2</data><data>0</data><data>0</data></inbox>
+    <register>
+    </register>
+    <desc>level description:
+把inbox中的每两个数加起来，并把结果放入outbox直到inbox为空
+您得到了add操作
+    </desc>
+    <outbox>
+        <data>9</data><data>-8</data><data>-7</data><data>0</data></outbox>
+    <speak>
+        <word>Angela: 您做的很好，公司最近的能源获取非常顺利</word>
+        <word>Angela: 那么请允许我告诉您关于“精灵”的秘密</word>
+        <word>Angela: 请试想一下，世界正在飞速发展，正因如此对能源的需求也正在日益增加</word>
+        <word>Angela: 当时的科技无法满足如此巨大的需求...</word>
+        <word>Angela: 这时，A发现了这些称作“精灵”的奇迹</word>
+        <word>Angela: 并从他们身上发现了获取能源的方法</word>
+        <word>Angela: 于是A创办了hrm公司</word>
+        <word>Angela: 您所设计的”自动化流程“便是指导各部门员工在这些“精灵”身上获取能源的过程</word>
+        <word>Angela: 但是这些“精灵”非常危险，需要恰当的”引导“</word>
+        <word>Angela: 这就依赖于您的“自动化流程”的设计了</word>
+        <word>Angela: 同样获取能源的过程，不同的”自动化流程“的“操作次数”和“流程规模”是不同的</word>
+        <word>Angela: 那么关于"精灵"，您了解的足够多了</word>
+        <word>Angela: 请开始今天的工作</word>
+    </speak>
+</level>

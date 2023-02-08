@@ -3,7 +3,7 @@ from util.GenerateLevelData import gen_data_level
 from util.MyUtil import is_int, ParserException, get_level_path
 
 
-def update_level_data(level_num):
+def update_level_data(level_num, register_data):
     """update new level data [xml] from former level data"""
     """
     # 1. 以level_1的inbox 8位数为种子生成新的8位inbox
@@ -25,7 +25,7 @@ def update_level_data(level_num):
             else:
                 raise ParserException("inbox data could only be integer.")
 
-    inbox_data, outbox_data = gen_data_level(level_num, inbox_data)
+    inbox_data, outbox_data = gen_data_level(level_num, inbox_data, register_data)
 
     for data in level[0].findall("data"):
         level[0].remove(data)

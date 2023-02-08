@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf8'?>
 <level>
     <inbox>
-        <data>-7</data><data>-4</data><data>-7</data></inbox>
+        <data>0</data><data>-4</data><data>-3</data></inbox>
     <register>
         <data>
             <id>0</id>
@@ -51,12 +51,12 @@
     <outbox>
         <data>B</data><data>U</data><data>G</data></outbox>
     <speak>
-        <word>作为一名新来的主管，继承上一任的工作内容是重要的</word>
-        <word>虽然我认为这就是所谓的复制粘贴，但是以前的人类却不这么认为</word>
-        <word>您说人类吗？那可是曾经在这个星球中统治了数万年的物种，十分惊人</word>
-        <word>不过这也是几千年以前的事情了</word>
-        <word>您可以在工作中感受过去人类使用的方法</word>
-        <word>公司为您提供了与之类似的“操作”——copyfrom</word>
-        <word>在op code中右键“操作”，去了解是如何使用这些“操作”</word>
+        <word>Angela: 作为一名新来的主管，继承上一任的工作内容是重要的</word>
+        <word>Angela: 虽然我认为这就是所谓的复制粘贴，但是以前的人类却不这么认为</word>
+        <word>Angela: 您说人类吗？那可是曾经在这个星球中统治了数万年的物种，十分惊人</word>
+        <word>Angela: 不过这也是几千年以前的事情了</word>
+        <word>Angela: 您可以在工作中感受过去人类使用的方法</word>
+        <word>Angela: 公司为您提供了与之类似的“操作”——copyfrom</word>
+        <word>Angela: 在op code中右键“操作”，去了解是如何使用这些“操作”</word>
     </speak>
 </level>

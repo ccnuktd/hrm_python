@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf8'?>
+<level>
+    <inbox>
+        <data>1</data><data>5</data><data>1</data><data>4</data><data>3</data><data>0</data><data>2</data><data>4</data></inbox>
+    <register>
+        <data>
+            <id>9</id>
+            <value>0</value>
+        </data>
+    </register>
+    <desc>level description:
+将inbox内容送到outbox中
+不过请去掉所有重复项，inbox中的数字的出现范围为0~5
+这次能源收集任务会几乎会用到你所有学过的操作和技能
+    </desc>
+    <outbox>
+        <data>1</data><data>5</data><data>4</data><data>3</data><data>0</data><data>2</data></outbox>
+    <speak>
+        <word>Angela: 周而复始，生生不息...</word>
+        <word>X: Angela你在说什么呢</word>
+        <word>Angela: 没说什么...不过这可以用来形容您的这一次能源收集任务</word>
+        <word>Angela: 您不觉得这一次的能源收集任务很熟悉吗</word>
+        <word>Angela: 是不是和您之前做过的有些类似</word>
+        <word>X: 好像是的</word>
+        <word>Angela: X，您还记得你最初来这家公司的时候吗</word>
+        <word>X: 我来这家公司已经10年了，不记得刚来时的情形了</word>
+        <word>Angela: 不过我还记得您最初来的时候</word>
+        <word>Angela: 您有些沉默寡言</word>
+        <word>Angela: 您神情严肃，脸上也没有笑容</word>
+        <word>Angela: 不过很快这一切都要结束了，如果您能成功完成这次的任务，上级为您提供了加入公司董事会的机会</word>
+        <word>Angela: 您可以选择离开这里，回到地面，我们可以保证您下半辈子衣食无忧</word>
+        <word>X: 是啊，快要结束了，我也准备离开这里了</word>
+        <word>Angela: 希望这次任务顺利完成，愿您找到想要的“书”[响指]</word>
+    </speak>
+</level>

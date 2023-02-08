@@ -1,25 +1,26 @@
 <?xml version='1.0' encoding='utf8'?>
 <level>
     <inbox>
-        <data>8</data><data>8</data><data>-4</data><data>8</data><data>-1</data><data>8</data><data>8</data><data>-1</data></inbox>
+        <data>3</data><data>-1</data><data>-9</data><data>5</data><data>8</data><data>-3</data><data>-5</data><data>8</data></inbox>
     <register>
     </register>
     <desc>level description:
 仍然是将inbox内容送到outbox中，不过您有了新的“操作”
     </desc>
     <outbox>
-        <data>8</data><data>8</data><data>-4</data><data>8</data><data>-1</data><data>8</data><data>8</data><data>-1</data></outbox>
+        <data>3</data><data>-1</data><data>-9</data><data>5</data><data>8</data><data>-3</data><data>-5</data><data>8</data></outbox>
     <speak>
-        <word>您加入hrm公司的时机非常恰当</word>
-        <word>公司一直在升级系统，以此来寻求高效获取能源的方式</word>
-        <word>我们想要设计一个更好的AI，让我们在资源几近枯竭的蓝星存活下来</word>
-        <word>有趣的是，我也是AI</word>
-        <word>关于公司的介绍到此为止了，是时候抽出一些时间来回答您的问题了，请问您有什么问题吗</word>
-        <word>关于上一任主管的工作吗？嗯，上一任主管以一种方式帮助公司进行了升级</word>
-        <word>也就是说，比起上一任主管，您会有更加舒适的工作环境</word>
-        <word>那么就请您继续为公司乃至人类创造更多价值</word>
-        <word>为此，公司提供了一个新工具jump</word>
-        <word>这可以让你的自动化流程设计变得更容易</word>
-        <word>继续工作吧</word>
+        <word>Angela: 您加入hrm公司的时机非常恰当</word>
+        <word>Angela: 公司一直在升级系统，以此来寻求高效获取能源的方式</word>
+        <word>Angela: 我们想要设计一个更好的AI，让我们在资源几近枯竭的蓝星存活下来</word>
+        <word>Angela: 有趣的是，我也是AI</word>
+        <word>Angela: 关于公司的介绍到此为止了，是时候抽出一些时间来回答您的问题了，请问您有什么问题吗</word>
+        <word>X: 上一任主管的工作是什么</word>
+        <word>Angela: 关于上一任主管的工作吗？嗯，上一任主管以一种方式帮助公司进行了升级</word>
+        <word>Angela: 也就是说，比起上一任主管，您会有更加舒适的工作环境</word>
+        <word>Angela: 那么就请您继续为公司乃至人类创造更多价值</word>
+        <word>Angela: 为此，公司提供了一个新工具jump</word>
+        <word>Angela: 这可以让你的自动化流程设计变得更容易</word>
+        <word>Angela: 继续工作吧</word>
     </speak>
 </level>

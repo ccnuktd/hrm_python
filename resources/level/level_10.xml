@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='utf8'?>
+<level>
+    <inbox>
+        <data>5</data><data>2</data><data>4</data><data>7</data><data>2</data><data>3</data><data>9</data><data>8</data></inbox>
+    <register>
+        <data>
+            <id>0</id>
+            <value>1</value>
+        </data>
+        <data>
+            <id>1</id>
+            <value>0</value>
+        </data>
+        <data>
+            <id>5</id>
+            <value>K</value>
+        </data>
+        <data>
+            <id>2</id>
+            <value>I</value>
+        </data>
+        <data>
+            <id>4</id>
+            <value>L</value>
+        </data>
+        <data>
+            <id>7</id>
+            <value>A</value>
+        </data>
+        <data>
+            <id>6</id>
+            <value>N</value>
+        </data>
+        <data>
+            <id>3</id>
+            <value>G</value>
+        </data>
+        <data>
+            <id>9</id>
+            <value>E</value>
+        </data>
+        <data>
+            <id>8</id>
+            <value>L</value>
+        </data>
+    </register>
+    <desc>level description:
+将inbox中的每一个东西当成地址，并以此获取对应的register内容，将这些内容放入outbox中
+这一次能源收集中中您将会获取到最后的技能——“间接”
+COPYFROM和COPYTO中填写的内容可以带上'[]'
+此时'[]'内的值则是一个地址，每一个地址指向register中的地板的序号
+您可以比较 COPYFROM [0] 和 COPYFROM 0操作的区别
+    </desc>
+    <outbox>
+        <data>[7, 'A']</data><data>[5, 'K']</data><data>[4, 'L']</data><data>[3, 'G']</data><data>[5, 'K']</data><data>[2, 'I']</data><data>[8, 'L']</data><data>[9, 'E']</data></outbox>
+    <speak>
+        <word>X: [您在一个部门的监视器中看到了一片血腥的场面，一个全副武装的人被一个没有头的怪物一爪撕碎，他倒在地上满脸痛苦]</word>
+        <word>X: [您平日在监视器里看到的都是一些看上去像是呆呆的玩偶，而今天却意外出现了人]</word>
+        <word>Angela: 主管，您怎么了</word>
+        <word>X: outbox区的发生了什么，我看到了骇人的画面</word>
+        <word>Angela: 啊，我明白了</word>
+        <word>Angela: 请您稍等一下，如果您无法忍受这样的图像，请您在等待时闭上眼睛</word>
+        <word>Angela: 解决了，系统出现了一个故障，导致防护措施失效了，按理说系统不应该会轻易出错</word>
+        <word>Angela: 请让我解释一下，这是一项在战争中发展起来的技术——“认知滤网”。现在它们广泛用于商业用途</word>
+        <word>Angela: 人脑是相当脆弱的，在看到残忍或令人震惊的可怕景象时，它可能会“宕机”。如果像您这样的主管受到了这样的精神污染，那对我来说就很难办了</word>
+        <word>Angela: 所以，我在您的监视器上安装了“认知滤网”作为防护措施</word>
+        <word>Angela: 在“认知滤网”工作时，监视器中的员工就像可爱玩偶，而那些“精灵”看起来就像是各种各样的可爱的小玩具</word>
+        <word>Angela: 您知道吗？在我决定安装“认知滤网”前，已经有很多主管在那个座位上失去了他们的理智。我绝不能让您重蹈他们的覆辙</word>
+    </speak>
+</level>

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='utf8'?>
+<level>
+    <inbox>
+        <data>1</data><data>3</data><data>9</data><data>2</data><data>3</data><data>2</data><data>6</data><data>1</data></inbox>
+    <register>
+        <data>
+            <id>9</id>
+            <value>0</value>
+        </data>
+    </register>
+    <desc>level description:
+对于inbox里的每两个数，第一个数中最多可以装下多少个完整的第二个数
+不必担心负数，除以0，或是余数
+    </desc>
+    <outbox>
+        <data>3</data><data>0</data><data>0</data><data>0</data></outbox>
+    <speak>
+        <word>B: ...你还在吗，Angela已经知道我的存在了，上一次黑进网络被她发现了</word>
+        <word>B: 我可能不能告诉你这些秘密了，但是请记住一点，在你进行”自动化流程“设计时，请尽量避免非常优秀的设计，因为...滋滋... 正是因为A...滋滋... 所以Angela的出现...</word>
+        <word>Angela: 主管，我们的系统出现了一些故障，目前已经处理完成，您没有遇见什么问题吧</word>
+        <word>X: 没问题...</word>
+        <word>Angela: 好的 [Angela离开]</word>
+        <word>X: [思考片刻并握紧拳头]</word>
+    </speak>
+</level>

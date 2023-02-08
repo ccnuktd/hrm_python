@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf8'?>
+<level>
+    <inbox>
+        <data>-3</data><data>0</data><data>3</data></inbox>
+    <register>
+    </register>
+    <desc>level description:
+对于inbox中的每一个数字，把它和0之间(包括它和0)之间的每一个数从(它逐渐到0)的顺序送入outbox
+这其实是一个计数器
+您多了两条操作BUMPNP和BUMPDN，这也是您获取到的最后两个操作
+    </desc>
+    <outbox>
+        <data>-3</data><data>-2</data><data>-1</data><data>0</data><data>0</data><data>3</data><data>2</data><data>1</data><data>0</data></outbox>
+    <speak>
+        <word>Angela: 假设...</word>
+        <word>Angela: ...您需要通过取悦一个“精灵”来达到今日的能源需求</word>
+        <word>Angela: 但与此同时，一名员工正冒着生命危险</word>
+        <word>Angela: 您会怎么做呢？是生产能源还是拯救员工</word>
+        <word>Angela: 这是一个很基础的问题，我相信您能给出正确答案</word>
+        <word>X: 拯救员工</word>
+        <word>Angela: 您来这儿不是保护或拯救员工的</word>
+        <word>Angela: 看来我没有意识到您是那种人道主义的类型</word>
+        <word>Angela: hrm公司是一家巨大的公司，这家公司供给着世界各国的能源</word>
+        <word>Angela: 您知道蓝星的能源供应已经严重不足</word>
+        <word>Angela: 于是先驱们来到地底探险，并在这里发现了“精灵”这种奇迹</word>
+        <word>Angela: 以我的标准来看，这应该是一个能够快速做出正确选择的基础问题，但是对于您来说，或许不是</word>
+        <word>Angela: 如果我是您上司的话</word>
+        <word>Angela: ‘你真令我失望’ 我也许会这样评价您的回答</word>
+        <word>Angela: 不过不用担心，我不会说这种话的</word>
+        <word>Angela: AI好就好在这个地方，不是吗</word>
+    </speak>
+</level>

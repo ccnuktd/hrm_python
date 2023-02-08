@@ -31,16 +31,16 @@ class SetUp:
         self.level.actionlevel1.triggered.connect(lambda: self.switch_level(1))
         self.level.actionlevel2.triggered.connect(lambda: self.switch_level(2))
         self.level.actionlevel3.triggered.connect(lambda: self.switch_level(3))
-        # self.level.actionlevel4.triggered.connect(self.switch_level_4)
-        # self.level.actionlevel5.triggered.connect(self.switch_level_5)
-        # self.level.actionlevel6.triggered.connect(self.switch_level_6)
-        # self.level.actionlevel7.triggered.connect(self.switch_level_7)
-        # self.level.actionlevel8.triggered.connect(self.switch_level_8)
-        # self.level.actionlevel9.triggered.connect(self.switch_level_9)
-        # self.level.actionlevel10.triggered.connect(self.switch_level_10)
-        # self.level.actionlevel11.triggered.connect(self.switch_level_11)
-        # self.level.actionlevel12.triggered.connect(self.switch_level_12)
-        # self.level.actionlevel13.triggered.connect(self.switch_level_13)
+        self.level.actionlevel4.triggered.connect(lambda: self.switch_level(4))
+        self.level.actionlevel5.triggered.connect(lambda: self.switch_level(5))
+        self.level.actionlevel6.triggered.connect(lambda: self.switch_level(6))
+        self.level.actionlevel7.triggered.connect(lambda: self.switch_level(7))
+        self.level.actionlevel8.triggered.connect(lambda: self.switch_level(8))
+        self.level.actionlevel9.triggered.connect(lambda: self.switch_level(9))
+        self.level.actionlevel10.triggered.connect(lambda: self.switch_level(10))
+        self.level.actionlevel11.triggered.connect(lambda: self.switch_level(11))
+        self.level.actionlevel12.triggered.connect(lambda: self.switch_level(12))
+        self.level.actionlevel13.triggered.connect(lambda: self.switch_level(13))
 
         # dynamically generate the level
         self.display_level_info()
@@ -57,26 +57,26 @@ class SetUp:
             self.level.menulevel.addAction(self.level.actionlevel2)
         if self.max_level_num > 2:
             self.level.menulevel.addAction(self.level.actionlevel3)
-        # if self.max_level_num > 3:
-        #     self.level.meulevel.addAction(self.level.actionlevel4)
-        # if self.max_level_num > 4:
-        #     self.level.menulevel.addAction(self.level.actionlevel5)
-        # if self.max_level_num > 5:
-        #     self.level.menulevel.addAction(self.level.actionlevel6)
-        # if self.max_level_num > 6:
-        #     self.level.menulevel.addAction(self.level.actionlevel7)
-        # if self.max_level_num > 7:
-        #     self.level.menulevel.addAction(self.level.actionlevel8)
-        # if self.max_level_num > 8:
-        #     self.level.menulevel.addAction(self.level.actionlevel9)
-        # if self.max_level_num > 9:
-        #     self.level.menulevel.addAction(self.level.actionlevel10)
-        # if self.max_level_num > 10:
-        #     self.level.menulevel.addAction(self.level.actionlevel11)
-        # if self.max_level_num > 11:
-        #     self.level.menulevel.addAction(self.level.actionlevel12)
-        # if self.max_level_num > 12:
-        #     self.level.menulevel.addAction(self.level.actionlevel13)
+        if self.max_level_num > 3:
+            self.level.menulevel.addAction(self.level.actionlevel4)
+        if self.max_level_num > 4:
+            self.level.menulevel.addAction(self.level.actionlevel5)
+        if self.max_level_num > 5:
+            self.level.menulevel.addAction(self.level.actionlevel6)
+        if self.max_level_num > 6:
+            self.level.menulevel.addAction(self.level.actionlevel7)
+        if self.max_level_num > 7:
+            self.level.menulevel.addAction(self.level.actionlevel8)
+        if self.max_level_num > 8:
+            self.level.menulevel.addAction(self.level.actionlevel9)
+        if self.max_level_num > 9:
+            self.level.menulevel.addAction(self.level.actionlevel10)
+        if self.max_level_num > 10:
+            self.level.menulevel.addAction(self.level.actionlevel11)
+        if self.max_level_num > 11:
+            self.level.menulevel.addAction(self.level.actionlevel12)
+        if self.max_level_num > 12:
+            self.level.menulevel.addAction(self.level.actionlevel13)
 
     # switch level
     def switch_level(self, level_num):
@@ -86,7 +86,17 @@ class SetUp:
         self.level = GameWindow(self, self.now_level)
         self.level.actionlevel1.triggered.connect(lambda: self.switch_level(1))
         self.level.actionlevel2.triggered.connect(lambda: self.switch_level(2))
-        self.level.actionlevel2.triggered.connect(lambda: self.switch_level(3))
+        self.level.actionlevel3.triggered.connect(lambda: self.switch_level(3))
+        self.level.actionlevel4.triggered.connect(lambda: self.switch_level(4))
+        self.level.actionlevel5.triggered.connect(lambda: self.switch_level(5))
+        self.level.actionlevel6.triggered.connect(lambda: self.switch_level(6))
+        self.level.actionlevel7.triggered.connect(lambda: self.switch_level(7))
+        self.level.actionlevel8.triggered.connect(lambda: self.switch_level(8))
+        self.level.actionlevel9.triggered.connect(lambda: self.switch_level(9))
+        self.level.actionlevel10.triggered.connect(lambda: self.switch_level(10))
+        self.level.actionlevel11.triggered.connect(lambda: self.switch_level(11))
+        self.level.actionlevel12.triggered.connect(lambda: self.switch_level(12))
+        self.level.actionlevel13.triggered.connect(lambda: self.switch_level(13))
 
         # dynamically generate the level
         self.display_level_info()

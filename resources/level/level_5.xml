@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf8'?>
+<level>
+    <inbox>
+        <data>-8</data><data>5</data><data>0</data><data>0</data><data>0</data><data>-6</data><data>0</data><data>-5</data></inbox>
+    <register>
+    </register>
+    <desc>level description:
+把所有不是0的东西放入outbox中，您多了一个新的“操作”——JUMPZ
+    </desc>
+    <outbox>
+        <data>0</data><data>0</data><data>0</data><data>0</data></outbox>
+    <speak>
+        <word>Angela: 上次能源采集任务完成的非常棒，您比上一任主管的能力更强</word>
+        <word>Angela: 那么请允许我告诉您这个秘密</word>
+        <word>Angela: 公司内部存在着一种叫做”精灵“的生物</word>
+        <word>Angela: 您所看到的inbox，outbox和register并不是物理器件</word>
+        <word>Angela: 而是实际存在的部门</word>
+        <word>Angela: 即便我是一个非常优秀的AI，也不能独自控制如此庞大的公司</word>
+        <word>Angela: 高层为每一个部门分配了一个AI部长，并分权独立</word>
+        <word>Angela: 您设计的”自动化流程“是由我向他们传达后执行的</word>
+        <word>Angela: 您可以把我当作大脑，而她们则是小脑</word>
+        <word>Angela: 我的意思是说，您能信任的只有我，并且你必须相信我才是最有能力，最可靠的那一个</word>
+        <word>Angela: 而您所看到的是也并不一定是真实的</word>
+        <word>Angela: 我没有听清楚您的问题，您是在问”精灵“是什么吗</word>
+        <word>Angela: 改天再说吧，今天的工作需要您来完成</word>
+    </speak>
+</level>

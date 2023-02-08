@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf8'?>
+<level>
+    <inbox>
+        <data>3</data><data>6</data><data>-5</data><data>-3</data><data>-5</data><data>-2</data><data>0</data><data>0</data></inbox>
+    <register>
+    </register>
+    <desc>level description:
+从inbox中取出两个值，把大的放入outbox中，如果它们相等，随便放哪个都行
+我们给您提供了新操作JUMPZ
+    </desc>
+    <outbox>
+        <data>6</data><data>-3</data><data>-2</data><data>0</data></outbox>
+    <speak>
+        <word>Angela: 能源产量日益攀升</word>
+        <word>Angela: AI也变得越来越完善</word>
+        <word>Angela: hrm公司的高层正在关注着您</word>
+        <word>Angela: A就是其中一员</word>
+        <word>Angela: 您了解A么</word>
+        <word>Angela: 他是我们的先驱</word>
+        <word>Angela: 他是第一个在无人问津的土地撒上种子的人</word>
+        <word>Angela: 或许在将来的某一天，A会想见见你</word>
+        <word>Angela: 您所追求的就可能成真了</word>
+        <word>X: 你怎么看待A</word>
+        <word>Angela: 我？我当然也很敬佩他</word>
+        <word>Angela: 但老实说，虽然他是我的创造者，但我对他了解的少之又少</word>
+        <word>Angela: 只有少数人能理解他</word>
+        <word>Angela: 事实上，想要完全了解一个人类是如此困难</word>
+        <word>Angela: 会有我完全了解您的一天吗</word>
+    </speak>
+</level>

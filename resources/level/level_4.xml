@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf8'?>
+<level>
+    <inbox>
+        <data>9</data><data>-7</data><data>0</data><data>-6</data><data>-3</data><data>-6</data><data>9</data><data>8</data></inbox>
+    <register>
+    </register>
+    <desc>level description:
+从inbox中拿出两件东西，并以相反的顺序放入outbox，直到inbox被拿空
+我们为您提供了复制粘贴的粘贴“操作”
+不用担心register，公司会有人去清理它们
+    </desc>
+    <outbox>
+        <data>-7</data><data>9</data><data>-6</data><data>0</data><data>-6</data><data>-3</data><data>8</data><data>9</data></outbox>
+    <speak>
+        <word>Angela: 您来这里已经有一年了</word>
+        <word>Angela: 适应这里的工作吗</word>
+        <word>Angela: 也许您是为了谋生而来，对这份工作或许不是非常感兴趣</word>
+        <word>Angela: 那么我可以和您说一个有趣的事情</word>
+        <word>Angela: 也许从您的视角来看，您只需要设计”自动化流程“来控制整个系统的工作</word>
+        <word>Angela: 但是您有想过这个系统的内部究竟是怎么运作的吗[ps:详情请见计算机组成原理:) --developer]</word>
+        <word>Angela: 想知道这个秘密，那就先把今天的工作完成吧</word>
+    </speak>
+</level>

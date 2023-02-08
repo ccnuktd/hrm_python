@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf8'?>
+<level>
+    <inbox>
+        <data>46</data></inbox>
+    <register>
+        <data>
+            <id>9</id>
+            <value>0</value>
+        </data>
+    </register>
+    <desc>level description:
+inbox中只有一个数，对于这一个数将不超过这个数的斐波那契数列的所有数都放入outbox中
+例如inbox为10，则outbox为1 2 3 5 8
+    </desc>
+    <outbox>
+        <data>1</data><data>2</data><data>3</data><data>5</data><data>8</data><data>13</data><data>21</data><data>34</data></outbox>
+    <speak>
+        <word>Angela: 今年是您来到公司的第5年了，您的工作能力我们有目共睹 ...滋滋...</word>
+        <word>?: ...您好</word>
+        <word>?: 啊，我知道了，您能看到这行字吗，有人在吗</word>
+        <word>B: 你可以称呼我为B</word>
+        <word>B: 你可以把我当作一个...熟悉这家公司的人。请理解我不能露面</word>
+        <word>B: 可能有些唐突，但是我会向你揭露这个公司的一些秘密</word>
+        <word>B: 可在那之前，我想问问你，你为什么来这家公司</word>
+        <word>X: ...</word>
+        <word>B: 很难回答吗，那么我换一个问法，你现在对你的工作满意吗</word>
+        <word>X: 满意...</word>
+        <word>B: 是吗...？我无法判断是是否实在说实话，但老实说，你几乎不知道关于这家公司的任何事，不是吗</word>
+        <word>B: 我会尽可能的简要解释的...</word>
+        <word>B: 长时间的黑入网络是很危险的，回见...</word>
+    </speak>
+</level>

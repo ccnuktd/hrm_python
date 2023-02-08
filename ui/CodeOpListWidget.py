@@ -240,7 +240,7 @@ class CodeDropList(QListWidget):
     def _delete(self):
         ok = QMessageBox().question(self, "Question", "remove selected?", QMessageBox.Yes | QMessageBox.No,
                                     QMessageBox.Yes)
-        if ok:
+        if ok == QMessageBox.Yes:
             self.takeItem(self.currentRow())
 
     def _clear_all(self):

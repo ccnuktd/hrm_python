@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf8'?>
+<level>
+    <inbox>
+        <data>0</data><data>1</data><data>-8</data><data>6</data><data>2</data><data>1</data><data>-5</data><data>-7</data></inbox>
+    <register>
+    </register>
+    <desc>level description:
+从inbox中取出两个值，如果这两个值相等，则将其中一个放入outbox输出，否则无视它们
+完成这项工作您需要一个新“操作”——SUB
+    </desc>
+    <outbox>
+        </outbox>
+    <speak>
+        <word>Angela: 您对您这几天的工作成果满意吗</word>
+        <word>Angela: 如果您的答案是不，相信这条消息会改变您的看法</word>
+        <word>Angela: 在您成为主管以后，部门的能源产量提升了13%</word>
+        <word>Angela: 这有赖于您的”自动化流程“的设计</word>
+        <word>Angela: 您可能感受不到这个数值的分量，但是这真的是一个巨大的突破</word>
+        <word>Angela: 您现在的感觉如何</word>
+        <word>X: 没感觉</word>
+        <word>Angela: 为什么？一般来说，听到这样的消息后，您应该会感到很高兴吧</word>
+        <word>Angela: 为了告诉您这个消息，我几乎是一路小跑过来的</word>
+        <word>Angela: 当然，这只是一种夸张的修辞，但是我没有想到您的反应居然是如此平静</word>
+        <word>Angela: 如果您能再开心一点就好了</word>
+        <word>Angela: 对了，今天是一个特殊的日子</word>
+        <word>Angela: 您注意到过桌上的香槟么？让我们举杯祝酒吧</word>
+        <word>Angela: 就在上次能源采集过程中，您杀死了第一名员工</word>
+        <word>Angela: 说您杀死的并不完全准确，是因为您的“自动化流程“的”操作次数”没有满足“精灵"的需要，"精灵"吃掉了前来处理的员工</word>
+        <word>Angela: 不过这是无法避免的，因为需要完成上一次的能源采集工作，至少需要28次"操作"，但是"精灵"的需求是25次之内</word>
+        <word>Angela: 这种事在以后的日子中将时长发生，我希望您不要因此太过震惊或感到内疚</word>
+        <word>Angela: 我相信它们是带着骄傲和自豪咽下最后一口气的，所以，您应该向他们表示尊敬</word>
+        <word>Angela: 而这就是为什么我要拿出这瓶藏了很久的顶级香槟</word>
+        <word>Angela: 为了那些死去的员工，带着自豪以及一点哀悼，干杯</word>
+    </speak>
+</level>

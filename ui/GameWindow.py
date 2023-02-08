@@ -148,7 +148,8 @@ class GameWindow(QMainWindow, Ui_MainWindow):
                 self.u_register_group.set_value(data[0], data[1])
 
     def load_level_info(self, level_num):
-        update_level_data(level_num)
+        _, self.register_data, _, _, _ = get_level_data(level_num)
+        update_level_data(level_num, self.register_data)
         self.inbox, self.register_data, desc, self.outbox, self.words = get_level_data(level_num)
         self.u_op_droplist.set_level_num(level_num)
         self.u_op_droplist.init_op()
