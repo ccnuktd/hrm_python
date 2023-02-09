@@ -1,7 +1,8 @@
 import re
 
 from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtWidgets import QMainWindow, QApplication
+from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox
+from qt_material import apply_stylesheet
 
 from GameWindow import GameWindow
 from MainWindow import MainWindow
@@ -17,17 +18,55 @@ class SetUp:
         self.level = None
         self.saveinfo = SaveInfo()
         self.max_level_num = self.saveinfo.read_level_info()
-        self.now_level = 1
+        self.now_level = None
+        self.desktop = QApplication.desktop()
 
     # jump to main window
     def show_main_window(self):
+        self.now_level = -1
         self.hello = MainWindow()
-        self.hello.startButton.clicked.connect(self.show_level_1)
+        self.hello.startButton.clicked.connect(self.start)
+        self.hello.restartButton.clicked.connect(self.restart)
+        self.hello.exitButton.clicked.connect(self.exit)
+        self.hello.move(self.desktop.width() // 4, self.desktop.height() // 6)
+
+        if self.max_level_num != -1:
+            # 用户不是第一次玩
+            self.hello.startButton.setText('继续')
+        else:
+            self.hello.startButton.setText('开始')
+
         self.hello.show()
 
-    def show_level_1(self):
-        self.level = GameWindow(self, 1)
+    def restart(self):
+        ok = QMessageBox().question(None, "Question", "是否清除所有存档?", QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+        if ok == QMessageBox.Yes:
+            self.max_level_num = -1
+            self.saveinfo.save_level_info(self.max_level_num)
+            self.hello.close()
+            self.show_main_window()
 
+    def exit(self):
+        self.hello.close()
+
+    def back_to_main_window(self):
+        self.level.close()
+        self.show_main_window()
+
+    def start(self):
+        self.hello.close()
+        if self.max_level_num == -1:
+            # 第一次玩需要保存数据
+            self.max_level_num = 1
+            self.now_level = self.max_level_num
+            self.saveinfo.save_level_info(self.now_level)
+        else:
+            # 回到上一次的最后一关
+            self.now_level = self.max_level_num
+
+        self.level = GameWindow(self, self.now_level)
+
+        self.level.actionmain_screen.triggered.connect(self.back_to_main_window)
         self.level.actionlevel1.triggered.connect(lambda: self.switch_level(1))
         self.level.actionlevel2.triggered.connect(lambda: self.switch_level(2))
         self.level.actionlevel3.triggered.connect(lambda: self.switch_level(3))
@@ -46,8 +85,9 @@ class SetUp:
         self.display_level_info()
         # display current level information
         _translate = QtCore.QCoreApplication.translate
-        self.level.menulevel.setTitle(_translate("MainWindow", "level 1"))
+        self.level.menulevel.setTitle(_translate("MainWindow", "level " + str(self.now_level)))
 
+        self.level.move(self.desktop.width() // 8, self.desktop.height() // 20)
         self.level.show()
         self.hello.close()
 
@@ -84,6 +124,7 @@ class SetUp:
         self.now_level = level_num
 
         self.level = GameWindow(self, self.now_level)
+        self.level.actionmain_screen.triggered.connect(self.back_to_main_window)
         self.level.actionlevel1.triggered.connect(lambda: self.switch_level(1))
         self.level.actionlevel2.triggered.connect(lambda: self.switch_level(2))
         self.level.actionlevel3.triggered.connect(lambda: self.switch_level(3))
@@ -105,13 +146,14 @@ class SetUp:
         _translate = QtCore.QCoreApplication.translate
         self.level.menulevel.setTitle(_translate("MainWindow", "level " + str(self.now_level)))
 
+        self.level.move(self.desktop.width() // 8, self.desktop.height() // 20)
         self.level.show()
 
     def level_up(self):
         self.now_level = self.now_level + 1
         if self.now_level > 13:
             self.now_level = 13
-            self.max_level_num = max(self.now_level, self.max_level_num)
+        self.max_level_num = max(self.now_level, self.max_level_num)
         # record level data
         self.saveinfo.save_level_info(self.now_level)
         # switch level
@@ -124,5 +166,6 @@ def setup(name='hrm', version='0.1', packages=['hrmengine'], url='', license='',
     QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)
     app = QApplication(sys.argv)
     window = SetUp()
+    apply_stylesheet(app, theme='dark_cyan.xml')
     window.show_main_window()
     sys.exit(app.exec_())

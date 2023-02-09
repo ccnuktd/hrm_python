@@ -10,12 +10,13 @@ class Pointer(QLabel):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setAlignment(QtCore.Qt.AlignCenter)
+        self.setStyleSheet("color: white;background-color: #886C54")
 
     def _display_func(self):
-        self.setStyleSheet("border: 3px solid red;")
+        self.setStyleSheet("color: white;background-color: #886C54;border: 2px solid red;")
 
     def _clear_func(self):
-        self.setStyleSheet("")
+        self.setStyleSheet("color: white;background-color: #886C54")
 
     def reset(self):
         self.setText("None")

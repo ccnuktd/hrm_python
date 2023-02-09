@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf8'?>
 <level>
     <inbox>
-        <data>1</data><data>5</data><data>1</data><data>4</data><data>3</data><data>0</data><data>2</data><data>4</data></inbox>
+        <data>2</data><data>3</data><data>3</data><data>4</data><data>0</data><data>1</data><data>0</data><data>3</data></inbox>
     <register>
         <data>
             <id>9</id>
@@ -14,7 +14,7 @@
 这次能源收集任务会几乎会用到你所有学过的操作和技能
     </desc>
     <outbox>
-        <data>1</data><data>5</data><data>4</data><data>3</data><data>0</data><data>2</data></outbox>
+        <data>2</data><data>3</data><data>4</data><data>0</data><data>1</data></outbox>
     <speak>
         <word>Angela: 周而复始，生生不息...</word>
         <word>X: Angela你在说什么呢</word>

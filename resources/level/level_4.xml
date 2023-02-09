@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf8'?>
 <level>
     <inbox>
-        <data>9</data><data>-7</data><data>0</data><data>-6</data><data>-3</data><data>-6</data><data>9</data><data>8</data></inbox>
+        <data>-4</data><data>-1</data><data>9</data><data>8</data><data>3</data><data>-4</data><data>-8</data><data>8</data></inbox>
     <register>
     </register>
     <desc>level description:
@@ -10,7 +10,7 @@
 不用担心register，公司会有人去清理它们
     </desc>
     <outbox>
-        <data>-7</data><data>9</data><data>-6</data><data>0</data><data>-6</data><data>-3</data><data>8</data><data>9</data></outbox>
+        <data>-1</data><data>-4</data><data>8</data><data>9</data><data>-4</data><data>3</data><data>8</data><data>-8</data></outbox>
     <speak>
         <word>Angela: 您来这里已经有一年了</word>
         <word>Angela: 适应这里的工作吗</word>
@@ -19,5 +19,12 @@
         <word>Angela: 也许从您的视角来看，您只需要设计”自动化流程“来控制整个系统的工作</word>
         <word>Angela: 但是您有想过这个系统的内部究竟是怎么运作的吗[ps:详情请见计算机组成原理:) --developer]</word>
         <word>Angela: 想知道这个秘密，那就先把今天的工作完成吧</word>
+        <word>Angela: 对了，您应该还没有使用register下方的四个按钮吧</word>
+        <word>Angela: 试想一下，您在设计”自动化流程“时可能会遇到十分复杂的情况</word>
+        <word>Angela: 这个时候您会需要一步一步的慢慢调试</word>
+        <word>Angela: 当您正在运行“自动化流程”时，这四个按钮的作用就体现出来了</word>
+        <word>Angela: NEXT表示执行下一步”操作“，执行后停止；STOP表示执行完当前”操作“后暂停”自动化流程“</word>
+        <word>Angela: GO ON则可以将被暂停的”自动化流程“继续运行；TERMINATE表示结束这一次”自动流程“</word>
+        <word>Angela: 这四个按钮非常有用，我相信您已经迫不及待地想要使用了</word>
     </speak>
 </level>

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf8'?>
 <level>
     <inbox>
-        <data>0</data><data>-4</data><data>-3</data></inbox>
+        <data>3</data><data>-6</data><data>-1</data></inbox>
     <register>
         <data>
             <id>0</id>
@@ -56,7 +56,12 @@
         <word>Angela: 您说人类吗？那可是曾经在这个星球中统治了数万年的物种，十分惊人</word>
         <word>Angela: 不过这也是几千年以前的事情了</word>
         <word>Angela: 您可以在工作中感受过去人类使用的方法</word>
-        <word>Angela: 公司为您提供了与之类似的“操作”——copyfrom</word>
-        <word>Angela: 在op code中右键“操作”，去了解是如何使用这些“操作”</word>
+        <word>Angela: 公司为您提供了与之类似的“操作”——COPYFROM</word>
+        <word>Angela: 这个“操作”和之前的INBOX和OUTBOX不同</word>
+        <word>Angela: 在您把它拖到code box后，还需要为它设置“目标”</word>
+        <word>Angela: 对于目标的解释，您可以理解为，COPYFROM需要把register中的某个格子作为来源</word>
+        <word>Angela: 而这个格子的序号就是目标</word>
+        <word>Angela: 您可以通过在code box中，双击“操作”左键来设置“目标”</word>
+        <word>Angela: 如果您仍然不明白，请在op box中右键该“操作”，你可以找到它的用法</word>
     </speak>
 </level>

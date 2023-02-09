@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='utf8'?>
 <level>
     <inbox>
-        <data>3</data><data>-1</data><data>-9</data><data>5</data><data>8</data><data>-3</data><data>-5</data><data>8</data></inbox>
+        <data>-6</data><data>1</data><data>5</data><data>2</data><data>8</data><data>-7</data><data>-8</data><data>8</data></inbox>
     <register>
     </register>
     <desc>level description:
 仍然是将inbox内容送到outbox中，不过您有了新的“操作”
     </desc>
     <outbox>
-        <data>3</data><data>-1</data><data>-9</data><data>5</data><data>8</data><data>-3</data><data>-5</data><data>8</data></outbox>
+        <data>-6</data><data>1</data><data>5</data><data>2</data><data>8</data><data>-7</data><data>-8</data><data>8</data></outbox>
     <speak>
         <word>Angela: 您加入hrm公司的时机非常恰当</word>
         <word>Angela: 公司一直在升级系统，以此来寻求高效获取能源的方式</word>
@@ -19,7 +19,12 @@
         <word>Angela: 关于上一任主管的工作吗？嗯，上一任主管以一种方式帮助公司进行了升级</word>
         <word>Angela: 也就是说，比起上一任主管，您会有更加舒适的工作环境</word>
         <word>Angela: 那么就请您继续为公司乃至人类创造更多价值</word>
-        <word>Angela: 为此，公司提供了一个新工具jump</word>
+        <word>Angela: 为此，公司提供了一个新工具JUMP</word>
+        <word>Angela: JUMP需要和LABEL搭配使用</word>
+        <word>Angela: 试想一下，当您需要设计某种不断重复的“操作”，您可以通过JUMP把需要执行的下一次操作转移到LABEL处</word>
+        <word>Angela: 但是前提是，您需要为它们设置相同的“目标”</word>
+        <word>Angela: 例如：label a: 某些操作 jump a，这样就可以不断执行这些操作</word>
+        <word>Angela: 您可以通过在code box中，双击“操作”左键来设置“目标”</word>
         <word>Angela: 这可以让你的自动化流程设计变得更容易</word>
         <word>Angela: 继续工作吧</word>
     </speak>

@@ -14,7 +14,7 @@ class SaveInfo:
                 return 1
             else:
                 try:
-                    if 1 <= data['level_info'] <= 13:
+                    if -1 <= data['level_info'] <= 13:
                         return data['level_info']
                 except Exception as e:
                     raise e

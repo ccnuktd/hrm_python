@@ -2,7 +2,7 @@ import operator
 import os
 
 from PyQt5.QtGui import QColor, QFont
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QLabel
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QLabel, QTextBrowser
 
 from hrmengine import parser
 
@@ -46,8 +46,6 @@ class GameWindow(QMainWindow, Ui_MainWindow):
         self.origin_flash_time = 10000
         self.flash_time = self.origin_flash_time // self.u_speed_slider.value()
 
-
-
         self.pre_process()
         self.last_item = None
         self.state = None
@@ -75,13 +73,13 @@ class GameWindow(QMainWindow, Ui_MainWindow):
 
     def track_code(self, row):
         if self.last_item is not None:
-            self.last_item.setBackground(QColor("white"))
+            self.last_item.setBackground(QColor("#886C54"))
         this_item = self.u_code_droplist.item(row)
-        this_item.setBackground(QColor("red"))
+        this_item.setBackground(QColor("#90FCFC"))
         self.last_item = this_item
 
     def untrack_code(self):
-        self.last_item.setBackground(QColor("white"))
+        self.last_item.setBackground(QColor("#886C54"))
 
     def input_flash(self, next_state):
         self.u_input_list.inbox(self.flash_time)
@@ -157,20 +155,21 @@ class GameWindow(QMainWindow, Ui_MainWindow):
 
         # 关卡引导文字初始化
         for word in self.words:
-            text_content = QLabel(self.stackedWidget)
+            text_content = QTextBrowser(self.stackedWidget)
             # 设置字体
             font = QFont()
             font.setFamily("Arial")
             font.setPointSize(10)
             text_content.setFont(font)
             # 文字换行
-            text_content.setWordWrap(True)
+            # text_content.setWordWrap(True)
             # 文字居中
             # text_content.setAlignment(Qt.AlignCenter)
             text_content.setText(word.text)
+            text_content.setStyleSheet('color: white')
             self.stackedWidget.addWidget(text_content)
         # 设置换页速度
-        self.stackedWidget.setSpeed(100)
+        self.stackedWidget.setSpeed(10)
         # 设置播放方式
         self.stackedWidget.setOrientation(Qt.Vertical)
 

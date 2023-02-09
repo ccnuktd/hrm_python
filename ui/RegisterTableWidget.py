@@ -33,7 +33,7 @@ class RegisterItem(QWidget):
 
     def set_value(self, value):
         self._value.setText(str(value))
-        self._value.setStyleSheet("color: rgb(255, 0, 0);")
+        self._value.setStyleSheet("color: #485424;background-color: #A0B45C")
 
     def get_value(self):
         return self._value.text()
@@ -47,6 +47,7 @@ class RegisterTableWidget(QTableWidget):
 
     def init_ui(self, row_num, col_num, width):
         self.clear()
+        self.setStyleSheet("background-color: #908CC4")
         self.verticalHeader().setVisible(False)  # Hide vertical headers
         self.horizontalHeader().setVisible(False)  # Hide horizontal headers
         self.setRowCount(row_num)

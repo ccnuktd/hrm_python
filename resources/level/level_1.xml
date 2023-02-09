@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='utf8'?>
 <level>
     <inbox>
-        <data>6</data><data>3</data><data>0</data></inbox>
+        <data>3</data><data>-4</data><data>2</data></inbox>
     <register>
     </register>
     <desc>level description:
 将inbox内容送到outbox中
     </desc>
     <outbox>
-        <data>6</data><data>3</data><data>0</data></outbox>
+        <data>3</data><data>-4</data><data>2</data></outbox>
     <speak>
         <word>?: 你好，X</word>
         <word>?: 欢迎来到hrm公司</word>
@@ -17,7 +17,8 @@
         <word>Angela: 我会教您该怎么做的</word>
         <word>Angela: 您可以通过level description来得知今天的工作要求</word>
         <word>Angela: 您的工作是拖动op box中的“操作”到code box中，设计自己的“自动化流程”</word>
-        <word>Angela: 对于不需要的“操作”，选中“操作”右键删除</word>
+        <word>Angela: 您可以在op box中右键操作查看每个操作的用途</word>
+        <word>Angela: 对于不需要的“操作”，可以在code box中选中“操作”右键删除</word>
         <word>Angela: 我相信您能做好的:)</word>
     </speak>
 </level>

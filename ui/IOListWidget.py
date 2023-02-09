@@ -24,11 +24,13 @@ class IOBlockWidget(QWidget):
 
     def set_font(self, font=QFont("Arial", 10, QFont.Black)):
         self._number.setFont(font)
+        self._number.setStyleSheet("color: #485424;")
 
     def set_layout(self):
         self._number.setAlignment(QtCore.Qt.AlignCenter)
         layout = QHBoxLayout()
         layout.addWidget(self._number)
+        layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
 
     def set_all(self, number):
@@ -36,6 +38,7 @@ class IOBlockWidget(QWidget):
         self.set_number(number)
         self.set_font()
         self.set_layout()
+        self.setStyleSheet("background-color: #A0B45C")
 
 
 class InputListWidget(QListWidget):
@@ -45,11 +48,12 @@ class InputListWidget(QListWidget):
         super().__init__(parent)
         self.setAcceptDrops(False)
         self.setDragEnabled(False)
+        self.setStyleSheet("background-color: #886C54")
 
     def _addItem(self, number):
         item_widget = QListWidgetItem()
         # set inner item height=50
-        item_widget.setSizeHint(QSize(0, 50))
+        item_widget.setSizeHint(QSize(0, 40))
 
         op = IOBlockWidget()
         op.set_all(number)
@@ -69,12 +73,12 @@ class InputListWidget(QListWidget):
     def display_func(self):
         """animation display"""
         widget = self.itemWidget(self.item(0))
-        widget.setStyleSheet("border: 3px solid red;")
+        widget.setStyleSheet("color: #485424; border: 3px solid red;")
 
     def clear_func(self):
         """animation clear"""
         widget = self.itemWidget(self.item(0))
-        widget.setStyleSheet("")
+        widget.setStyleSheet("background-color: #A0B45C;color: #485424;")
 
     def inbox(self, flash_time):
         flash(self.display_func, self.clear_func, flash_time)
@@ -102,13 +106,14 @@ class OutputListWidget(QListWidget):
         super().__init__(parent)
         self.setAcceptDrops(False)
         self.setDragEnabled(False)
+        self.setStyleSheet("background-color: #886C54")
 
     def init_outbox(self):
         self.clear()
 
     def _addItem(self, number):
         item_widget = QListWidgetItem()
-        item_widget.setSizeHint(QSize(0, 50))
+        item_widget.setSizeHint(QSize(0, 40))
 
         op = IOBlockWidget()
         op.set_all(number)
@@ -122,11 +127,11 @@ class OutputListWidget(QListWidget):
     def display_func(self):
         # display the last item
         widget = self.itemWidget(self.item(self.count() - 1))
-        widget.setStyleSheet("border: 3px solid red;")
+        widget.setStyleSheet("background-color: #A0B45C;color: #485424; border: 3px solid red;")
 
     def clear_func(self):
         widget = self.itemWidget(self.item(self.count() - 1))
-        widget.setStyleSheet("")
+        widget.setStyleSheet("background-color: #A0B45C;color: #485424;")
 
     def outbox(self, pointer_value, flash_time):
         self._addItem(pointer_value)
