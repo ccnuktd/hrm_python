@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf8'?>
 <level>
     <inbox>
-        <data>5</data><data>2</data><data>4</data><data>7</data><data>2</data><data>3</data><data>9</data><data>8</data></inbox>
+        <data>5</data><data>2</data><data>4</data><data>7</data><data>6</data><data>3</data><data>9</data><data>8</data></inbox>
     <register>
         <data>
             <id>0</id>
@@ -52,12 +52,12 @@ COPYFROM和COPYTO中填写的内容可以带上'[]'
 您可以比较 COPYFROM [0] 和 COPYFROM 0操作的区别
     </desc>
     <outbox>
-        <data>[7, 'A']</data><data>[5, 'K']</data><data>[4, 'L']</data><data>[3, 'G']</data><data>[5, 'K']</data><data>[2, 'I']</data><data>[8, 'L']</data><data>[9, 'E']</data></outbox>
+        <data>K</data><data>I</data><data>L</data><data>A</data><data>N</data><data>G</data><data>E</data><data>L</data></outbox>
     <speak>
         <word>X: [您在一个部门的监视器中看到了一片血腥的场面，一个全副武装的人被一个没有头的怪物一爪撕碎，他倒在地上满脸痛苦]</word>
         <word>X: [您平日在监视器里看到的都是一些看上去像是呆呆的玩偶，而今天却意外出现了人]</word>
         <word>Angela: 主管，您怎么了</word>
-        <word>X: outbox区的发生了什么，我看到了骇人的画面</word>
+        <word>X: outbox区发生了什么，我看到了骇人的画面</word>
         <word>Angela: 啊，我明白了</word>
         <word>Angela: 请您稍等一下，如果您无法忍受这样的图像，请您在等待时闭上眼睛</word>
         <word>Angela: 解决了，系统出现了一个故障，导致防护措施失效了，按理说系统不应该会轻易出错</word>

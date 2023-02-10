@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf8'?>
 <level>
     <inbox>
-        <data>6</data><data>-2</data><data>-5</data><data>6</data><data>-2</data><data>-4</data><data>3</data><data>5</data></inbox>
+        <data>5</data><data>5</data><data>-9</data><data>7</data><data>-8</data><data>-7</data><data>5</data><data>3</data></inbox>
     <register>
     </register>
     <desc>level description:
@@ -9,7 +9,7 @@
 您得到了add操作
     </desc>
     <outbox>
-        <data>4</data><data>1</data><data>-6</data><data>8</data></outbox>
+        <data>10</data><data>-2</data><data>-15</data><data>8</data></outbox>
     <speak>
         <word>Angela: 您做的很好，公司最近的能源获取非常顺利</word>
         <word>Angela: 那么请允许我告诉您关于“精灵”的秘密</word>

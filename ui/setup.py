@@ -1,14 +1,18 @@
-import re
-
 from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMessageBox
 from qt_material import apply_stylesheet
+from PyQt5 import QtCore
+import sys
 
 from GameWindow import GameWindow
 from MainWindow import MainWindow
-from level0 import Level0
-from PyQt5 import QtCore
-import sys
+from level0_ui.level0 import Level0
+from level1_5_ui.level1_5 import Level1_5
+from level3_5_ui.level3_5 import Level3_5
+from level6_5_ui.level6_5 import Level6_5
+from level10_5_ui.level10_5 import Level10_5
+from level12_5_ui.level12_5 import Level12_5
+from level_final_ui.level_final import LevelFinal
 from save.SaveInfo import SaveInfo
 
 
@@ -17,6 +21,7 @@ class SetUp:
 
     def __init__(self):
         self.level = None
+        self.level_final = None
         self.saveinfo = SaveInfo()
         self.max_level_num = self.saveinfo.read_level_info()
         self.now_level = None
@@ -24,6 +29,10 @@ class SetUp:
 
     # jump to main window
     def show_main_window(self):
+        if self.level_final is not None:
+            self.level_final.stop_bell()
+            self.level_final.close()
+
         self.now_level = -1
         self.hello = MainWindow()
         self.level0 = Level0()
@@ -55,6 +64,7 @@ class SetUp:
         self.hello.close()
 
     def back_to_main_window(self):
+        self.level.stop_bgm()
         self.level.close()
         self.show_main_window()
 
@@ -68,7 +78,7 @@ class SetUp:
             return
         elif self.max_level_num == 0:
             # 玩过level0，从level0进入level1
-            self.level0.bell.stop()
+            self.level0.stop_bell()
             self.level0.close()
             self.max_level_num = 1
             self.now_level = self.max_level_num
@@ -134,6 +144,7 @@ class SetUp:
 
     # switch level
     def switch_level(self, level_num):
+        self.level.stop_bgm()
         self.level.close()
         self.now_level = level_num
 
@@ -164,9 +175,69 @@ class SetUp:
         self.level.show()
 
     def level_up(self):
-        self.now_level = self.now_level + 1
+        # 特殊关卡
+        if self.now_level == 1:
+            self.level1_5 = Level1_5()
+            self.now_level += 0.2
+            self.level1_5.nextButton.clicked.connect(self.level_up)
+            self.level.stop_bgm()
+            self.level.close()
+            self.level1_5.show()
+            return
+        elif self.now_level == 3:
+            self.level3_5 = Level3_5()
+            self.now_level += 0.2
+            self.level3_5.nextButton.clicked.connect(self.level_up)
+            self.level.stop_bgm()
+            self.level.close()
+            self.level3_5.show()
+            return
+        elif self.now_level == 6:
+            self.level6_5 = Level6_5()
+            self.now_level += 0.2
+            self.level6_5.nextButton.clicked.connect(self.level_up)
+            self.level.stop_bgm()
+            self.level.close()
+            self.level6_5.show()
+            return
+        elif self.now_level == 10:
+            self.level10_5 = Level10_5()
+            self.now_level += 0.2
+            self.level10_5.nextButton.clicked.connect(self.level_up)
+            self.level.stop_bgm()
+            self.level.close()
+            self.level10_5.show()
+            return
+        elif self.now_level == 12:
+            self.level12_5 = Level12_5()
+            self.now_level += 0.2
+            self.level12_5.nextButton.clicked.connect(self.level_up)
+            self.level.stop_bgm()
+            self.level.close()
+            self.level12_5.show()
+            return
+
+        self.now_level = int(self.now_level + 1)
+        if self.now_level == 2:
+            self.level1_5.close()
+        elif self.now_level == 4:
+            self.level3_5.close()
+        elif self.now_level == 7:
+            self.level6_5.close()
+        elif self.now_level == 11:
+            self.level10_5.close()
+        elif self.now_level == 13:
+            self.level12_5.close()
+
         if self.now_level > 13:
-            self.now_level = 13
+            # 最后一幕
+            self.level_final = LevelFinal()
+            self.level_final.nextButton.clicked.connect(self.show_main_window)
+            self.level.stop_bgm()
+            self.level.close()
+            self.level_final.show()
+            return
+
         self.max_level_num = max(self.now_level, self.max_level_num)
         # record level data
         self.saveinfo.save_level_info(self.now_level)

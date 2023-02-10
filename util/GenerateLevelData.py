@@ -45,7 +45,7 @@ def gen_data_level(level_num, inbox_data, register_data):
         outbox_data = gen_outbox_data_9(inbox_data)
     elif level_num == 10:
         # 固定输入
-        inbox_data = [5, 2, 4, 7, 2, 3, 9, 8]
+        inbox_data = [5, 2, 4, 7, 6, 3, 9, 8]
         outbox_data = gen_outbox_data_10(inbox_data, register_data)
     elif level_num == 11:
         inbox_data = [34 + inbox_data[0] % 20]
@@ -138,7 +138,9 @@ def gen_outbox_data_9(inbox_data):
 def gen_outbox_data_10(inbox_data, register_data):
     outbox = []
     for data in inbox_data:
-        outbox.append(register_data[data])
+        for index, value in register_data:
+            if index == data:
+                outbox.append(value)
     return outbox
 
 

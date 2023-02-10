@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='utf8'?>
 <level>
     <inbox>
-        <data>8</data><data>1</data><data>-1</data><data>-1</data><data>-2</data><data>-7</data><data>-6</data><data>1</data></inbox>
+        <data>-6</data><data>-3</data><data>7</data><data>-8</data><data>-3</data><data>9</data><data>6</data><data>-4</data></inbox>
     <register>
     </register>
     <desc>level description:
 仍然是将inbox内容送到outbox中，不过您有了新的“操作”
     </desc>
     <outbox>
-        <data>8</data><data>1</data><data>-1</data><data>-1</data><data>-2</data><data>-7</data><data>-6</data><data>1</data></outbox>
+        <data>-6</data><data>-3</data><data>7</data><data>-8</data><data>-3</data><data>9</data><data>6</data><data>-4</data></outbox>
     <speak>
         <word>Angela: 您加入hrm公司的时机非常恰当</word>
         <word>Angela: 公司一直在升级系统，以此来寻求高效获取能源的方式</word>

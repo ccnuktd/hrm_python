@@ -326,7 +326,7 @@ class CodeDropList(QListWidget):
 
             # now_row recode
             if self.now_row == -1:
-                self.now_row = 0 if self.count() == 0 else self.count() - 1
+                self.now_row = 0 if self.count() == 0 else self.count()
 
             op = self.slot.get_item()
             if op is not None:

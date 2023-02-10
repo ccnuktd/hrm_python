@@ -1,13 +1,14 @@
 import operator
 import os
 
-from PyQt5.QtGui import QColor, QFont
+from PyQt5.QtGui import QColor, QFont, QIcon, QKeyEvent
+from PyQt5.QtMultimedia import QSound
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QLabel, QTextBrowser
 
 from hrmengine import parser
 
 from ui.hrm_ui import Ui_MainWindow
-from PyQt5.QtCore import QCoreApplication, Qt
+from PyQt5.QtCore import QCoreApplication, Qt, QSize
 
 from hrmengine import cpu
 from hrmengine.cpu import ExecutionExceptin
@@ -32,12 +33,26 @@ class GameWindow(QMainWindow, Ui_MainWindow):
         self.setup = setup
         # load level info
         self.load_level_info(level_num)
+        self.level_num = level_num
+
         # Button event triggering
         self.u_start_btn.clicked['bool'].connect(self.start_event)
         self.u_next_btn.clicked['bool'].connect(self.next_event)
         self.u_pause_btn.clicked['bool'].connect(self.stop_event)
         self.u_goon_btn.clicked['bool'].connect(self.goon_evnet)
         self.u_exit_btn.clicked['bool'].connect(self.exit_event)
+        self.bgmButton.clicked['bool'].connect(self.switch_bgm_state)
+
+        # 设置icon
+        self.bgmButton.setIcon(QIcon('resources/icons/sound/bell.png'))
+        self.bgmButton.setIconSize(QSize(42, 42))
+        # 1表示bgm正在播放，0表示停止
+        self.bgm_state = 1
+        self.play_bgm()
+
+        # 跳关
+        self.key = ''
+
         # 绑定信号槽
         self.pushButtonPrev.clicked.connect(self.stackedWidget.slideInPrev)
         self.pushButtonNext.clicked.connect(self.stackedWidget.slideInNext)
@@ -51,6 +66,27 @@ class GameWindow(QMainWindow, Ui_MainWindow):
         self.last_item = None
         self.state = None
         self.process_state = State.INIT
+
+    def switch_bgm_state(self):
+        if self.bgm_state == 1:
+            self.stop_bgm()
+            self.bgmButton.setIcon(QIcon('resources/icons/sound/bell-dash.png'))
+            self.bgm_state = 0
+        else:
+            self.play_bgm()
+            self.bgmButton.setIcon(QIcon('resources/icons/sound/bell.png'))
+            self.bgm_state = 1
+
+    def play_bgm(self):
+        if self.level_num != 10:
+            self.bgm = QSound('resources/music/level1.wav')
+        else:
+            self.bgm = QSound('resources/music/level10.wav')
+        self.bgm.setLoops(QSound.Infinite)
+        self.bgm.play()
+
+    def stop_bgm(self):
+        self.bgm.stop()
 
     def change_speed(self):
         self.flash_time = self.origin_flash_time // self.u_speed_slider.value()
@@ -274,3 +310,14 @@ class GameWindow(QMainWindow, Ui_MainWindow):
             self.jump_flash()
         elif op == 'JUMPZ':
             self.jump_flash()
+
+    def keyReleaseEvent(self, a0: QKeyEvent) -> None:
+        if a0.key() == Qt.Key_Space:
+            self.key = ''
+        else:
+            self.key += a0.text()
+        if self.key == 'angela':
+            self.skip_this_level()
+
+    def skip_this_level(self):
+        self.setup.level_up()
