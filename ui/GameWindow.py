@@ -45,7 +45,8 @@ class GameWindow(QMainWindow, Ui_MainWindow):
         self.u_speed_slider.valueChanged.connect(self.change_speed)
         self.origin_flash_time = 10000
         self.flash_time = self.origin_flash_time // self.u_speed_slider.value()
-
+        # 无边框
+        self.setWindowFlag(Qt.FramelessWindowHint)
         self.pre_process()
         self.last_item = None
         self.state = None

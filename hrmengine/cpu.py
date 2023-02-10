@@ -77,7 +77,7 @@ def exeOutbox(state, params):
     put the pointer value to the tail of output box
     """
     if state.pointer is None:
-        raise ExecutionExceptin("OUTBOX without pointer")
+        raise ExecutionExceptin("OUTBOX with empty bus")
     state.outbox.append(state.pointer)
     state.pointer = None
 
@@ -107,7 +107,7 @@ def exeAdd(state, params):
     only support number
     """
     if state.pointer is None:
-        raise ExecutionExceptin("ADD without pointer")
+        raise ExecutionExceptin("ADD with empty bus")
     index = getRegIndexToRef(params[0], state.regs)
 
     if isinstance(state.pointer, str) or isinstance(state.regs[index], str):
@@ -121,7 +121,7 @@ def exeSub(state, params):
     support number sub number and alphabet sub alphabet
     """
     if state.pointer is None:
-        raise ExecutionExceptin("Sub without pointer")
+        raise ExecutionExceptin("Sub with empty bus")
 
     index = getRegIndexToRef(params[0], state.regs)
 

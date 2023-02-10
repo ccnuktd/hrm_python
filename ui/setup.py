@@ -6,6 +6,7 @@ from qt_material import apply_stylesheet
 
 from GameWindow import GameWindow
 from MainWindow import MainWindow
+from level0 import Level0
 from PyQt5 import QtCore
 import sys
 from save.SaveInfo import SaveInfo
@@ -25,9 +26,13 @@ class SetUp:
     def show_main_window(self):
         self.now_level = -1
         self.hello = MainWindow()
+        self.level0 = Level0()
         self.hello.startButton.clicked.connect(self.start)
         self.hello.restartButton.clicked.connect(self.restart)
         self.hello.exitButton.clicked.connect(self.exit)
+
+        self.level0.nextButton.clicked.connect(self.start)
+
         self.hello.move(self.desktop.width() // 4, self.desktop.height() // 6)
 
         if self.max_level_num != -1:
@@ -54,14 +59,23 @@ class SetUp:
         self.show_main_window()
 
     def start(self):
-        self.hello.close()
         if self.max_level_num == -1:
-            # 第一次玩需要保存数据
+            # 第一次玩的用户，从hello进入到level0
+            self.hello.close()
+            self.level0.show()
+            self.max_level_num = 0
+            self.now_level = self.max_level_num
+            return
+        elif self.max_level_num == 0:
+            # 玩过level0，从level0进入level1
+            self.level0.bell.stop()
+            self.level0.close()
             self.max_level_num = 1
             self.now_level = self.max_level_num
             self.saveinfo.save_level_info(self.now_level)
         else:
-            # 回到上一次的最后一关
+            # 玩过level1的用户，回到上一次的最后一关
+            self.hello.close()
             self.now_level = self.max_level_num
 
         self.level = GameWindow(self, self.now_level)
