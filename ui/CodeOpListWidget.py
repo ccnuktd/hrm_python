@@ -350,6 +350,9 @@ class CodeDropList(QListWidget):
     def dragMoveEvent(self, e: QDragMoveEvent):
         if self.forbidden_drag_flag is False:
             if self.now_row != self.last_row:
+                if self.old_item == None:
+                    e.ignore()
+                    return
                 # exchange position
                 # delete last_row item
                 self.takeItem(self.last_row)

@@ -98,7 +98,7 @@ def gen_outbox_data_4(inbox_data):
 def gen_outbox_data_5(inbox_data):
     outbox = []
     for data in inbox_data:
-        if data == 0:
+        if data != 0:
             outbox.append(data)
     return outbox
 

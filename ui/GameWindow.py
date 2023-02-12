@@ -67,6 +67,9 @@ class GameWindow(QMainWindow, Ui_MainWindow):
         self.state = None
         self.process_state = State.INIT
 
+        # 记录代码执行次数
+        self.total_count = 0
+
     def switch_bgm_state(self):
         if self.bgm_state == 1:
             self.stop_bgm()
@@ -140,27 +143,27 @@ class GameWindow(QMainWindow, Ui_MainWindow):
         id = parse_address(state, address)
         self.u_pointer.display_value(self.flash_time)
         val = self.u_register_group.display_get_value(id, self.flash_time)
-        new_val = state.pointer + val
+        new_val = state.pointer + int(val)
         self.u_pointer.set_value(new_val, self.flash_time)
 
     def sub_flash(self, state, address):
         id = parse_address(state, address)
         self.u_pointer.display_value(self.flash_time)
         val = self.u_register_group.display_get_value(id, self.flash_time)
-        new_val = state.pointer - val
+        new_val = state.pointer - int(val)
         self.u_pointer.set_value(new_val, self.flash_time)
 
     def bumpup_flash(self, state, address):
         id = parse_address(state, address)
         val = self.u_register_group.display_get_value(id, self.flash_time)
-        new_val = val + 1
+        new_val = int(val) + 1
         self.u_register_group.display_set_value(id, new_val, self.flash_time)
         self.u_pointer.set_value(new_val, self.flash_time)
 
     def bumpdn_flash(self, state, address):
         id = parse_address(state, address)
         val = self.u_register_group.display_get_value(id, self.flash_time)
-        new_val = val - 1
+        new_val = int(val) - 1
         self.u_register_group.display_set_value(id, new_val, self.flash_time)
         self.u_pointer.set_value(new_val, self.flash_time)
 
@@ -240,6 +243,12 @@ class GameWindow(QMainWindow, Ui_MainWindow):
                     if self.state.pc != -1:
                         # CPU state
                         self.state = cpu.tick(self.state)
+                        self.total_count += 1
+                        if self.total_count > 300:
+                            # 当执行次数超过500次
+                            QMessageBox().information(self, "run time error", "endless loop")
+                            self.total_count = 0
+                            break
                         # show UI state
                         self.ui_show(self.state.prev_state, self.state)
                     else:
