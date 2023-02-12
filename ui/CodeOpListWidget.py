@@ -73,7 +73,7 @@ class OperationWidget(QWidget):
         self.set_font()
         self.set_layout()
         self._set_color()
-        self.set_menu()
+        # self.set_menu()
 
 
 class OperationDropList(QListWidget):

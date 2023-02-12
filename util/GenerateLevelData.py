@@ -36,6 +36,9 @@ def gen_data_level(level_num, inbox_data, register_data):
     elif level_num == 6:
         outbox_data = gen_outbox_data_6(inbox_data)
     elif level_num == 7:
+        # inbox中需要又比较多的相同的数
+        inbox_data[1] = inbox_data[0]
+        inbox_data[7] = inbox_data[6]
         outbox_data = gen_outbox_data_7(inbox_data)
     elif level_num == 8:
         outbox_data = gen_outbox_data_8(inbox_data)
@@ -158,7 +161,7 @@ def gen_outbox_data_12(inbox_data):
     i = 0
     outbox = []
     while i < len(inbox_data):
-        outbox.append(inbox_data[i + 1] // inbox_data[i])
+        outbox.append(inbox_data[i] // inbox_data[i + 1])
         i += 2
     return outbox
 

@@ -111,7 +111,7 @@ class SetUp:
         _translate = QtCore.QCoreApplication.translate
         self.level.menulevel.setTitle(_translate("MainWindow", "level " + str(self.now_level)))
 
-        self.level.move(self.desktop.width() // 8, self.desktop.height() // 20)
+        self.level.move(self.desktop.width() // 10, self.desktop.height() // 30)
         self.level.show()
         self.hello.close()
 
@@ -171,7 +171,7 @@ class SetUp:
         _translate = QtCore.QCoreApplication.translate
         self.level.menulevel.setTitle(_translate("MainWindow", "level " + str(self.now_level)))
 
-        self.level.move(self.desktop.width() // 8, self.desktop.height() // 20)
+        self.level.move(self.desktop.width() // 10, self.desktop.height() // 30)
         self.level.show()
 
     def level_up(self):
@@ -245,7 +245,7 @@ class SetUp:
         self.switch_level(self.now_level)
 
 
-def setup(name='hrm', version='0.1', packages=['hrmengine'], url='', license='', author='Yu Huang',
+def setup(name='hrm', version='1.1', packages=['hrmengine'], url='', license='', author='Yu Huang',
           author_email='nana414021069@163.com', description=''):
     # make the program support high-resolution display
     QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling)

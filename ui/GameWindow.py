@@ -14,7 +14,7 @@ from hrmengine import cpu
 from hrmengine.cpu import ExecutionExceptin
 from hrmengine.parser import parse_address
 from util.UpdateLevelDate import update_level_data
-from util.MyUtil import get_level_data, get_level_path
+from util.MyUtil import get_level_data, read_file
 from util.MyEnum import State
 
 
@@ -42,6 +42,8 @@ class GameWindow(QMainWindow, Ui_MainWindow):
         self.u_goon_btn.clicked['bool'].connect(self.goon_evnet)
         self.u_exit_btn.clicked['bool'].connect(self.exit_event)
         self.bgmButton.clicked['bool'].connect(self.switch_bgm_state)
+        self.operation_connection()
+        self.check_text()
 
         # 设置icon
         self.bgmButton.setIcon(QIcon('resources/icons/sound/bell.png'))
@@ -218,9 +220,12 @@ class GameWindow(QMainWindow, Ui_MainWindow):
 
     def check_pass(self):
         if operator.eq(self.state.outbox, self.outbox):
-            QMessageBox().information(self, "congratulations", "you pass this level")
-            # 触发setup的levelup函数
-            self.setup.level_up()
+            if self.rejudge_pass():
+                # 触发setup的levelup函数
+                QMessageBox().information(self, "congratulations", "You pass this level!")
+                self.setup.level_up()
+            else:
+                QMessageBox().information(self, "sorry", "This method only solves the current problem and will not work if the inbox data changes, please try again.")
         else:
             QMessageBox().information(self, "sorry", "please try again")
 
@@ -244,8 +249,8 @@ class GameWindow(QMainWindow, Ui_MainWindow):
                         # CPU state
                         self.state = cpu.tick(self.state)
                         self.total_count += 1
-                        if self.total_count > 300:
-                            # 当执行次数超过500次
+                        if self.total_count > 200:
+                            # 当执行次数超过200次
                             QMessageBox().information(self, "run time error", "endless loop")
                             self.total_count = 0
                             break
@@ -330,3 +335,99 @@ class GameWindow(QMainWindow, Ui_MainWindow):
 
     def skip_this_level(self):
         self.setup.level_up()
+
+    def operation_connection(self):
+        self.pushButton_inbox.clicked.connect(lambda: self.help(self.pushButton_inbox.text()))
+        self.pushButton_outbox.clicked.connect(lambda: self.help(self.pushButton_outbox.text()))
+        self.pushButton_jump.clicked.connect(lambda: self.help(self.pushButton_jump.text()))
+        self.pushButton_jumpn.clicked.connect(lambda: self.help(self.pushButton_jumpn.text()))
+        self.pushButton_jumpz.clicked.connect(lambda: self.help(self.pushButton_jumpz.text()))
+        self.pushButton_copyto.clicked.connect(lambda: self.help(self.pushButton_copyto.text()))
+        self.pushButton_copyfrom.clicked.connect(lambda: self.help(self.pushButton_copyfrom.text()))
+        self.pushButton_label.clicked.connect(lambda: self.help(self.pushButton_label.text()))
+        self.pushButton_add.clicked.connect(lambda: self.help(self.pushButton_add.text()))
+        self.pushButton_sub.clicked.connect(lambda: self.help(self.pushButton_sub.text()))
+        self.pushButton_bumpup.clicked.connect(lambda: self.help(self.pushButton_bumpup.text()))
+        self.pushButton_bumpdown.clicked.connect(lambda: self.help(self.pushButton_bumpdown.text()))
+
+    def check_text(self):
+        help = {
+            'INBOX': '取出inbox中的一个方块的内容，并将值传递到bus中',
+            'OUTBOX': '将bus中的内容传递到outbox中，并将bus置为None',
+            'COPYFROM': '接受一个目标X，将register中的第X个格子内容复制到bus中',
+            'COPYTO': '接受一个目标X，将bus中的值复制到register中的第X个格子中',
+            'ADD': '接受一个目标X，将bus中的内容和register中第X个格子的值相加，并用得到的结果覆盖bus',
+            'SUB': '接受一个目标X，将bus中的内容减去register中第X个格子的值，并用得到的结果覆盖bus',
+            'JUMP': '接受一个目标X，跳转到设置相同目标的LABEL操作的位置上',
+            'LABEL': '设置一个目标X，用于引导JUMP操作的跳转位置',
+            'JUMPN': '接受一个目标X，如果bus中内容为数字且为负数，执行此操作[该操作的执行参照JUMP]，否则跳过此操作',
+            'JUMPZ': '接受一个目标X，如果bus中内容为数字且为0，执行此操作[该操作的执行参照JUMP]，否则跳过此操作',
+            'BUMPUP': '接受一个目标X，该操作只能对于已存在内容的register的第X个格子使用，该操作会第X个格子的内容加1，然后将结果覆盖bus内容',
+            'BUMPDN': '接受一个目标X，该操作只能对于已存在内容的register的第X个格子使用，该操作会第X个格子的内容减1，然后将结果覆盖bus内容'
+        }
+        l = read_file('resources/level/op_' + str(self.level_num) + '.txt')
+
+        for op in l:
+            if op in help:
+                self.set_op_text(op)
+
+    def set_op_text(self, op):
+        if op == 'INBOX':
+            self.pushButton_inbox.setText(op)
+        elif op == 'OUTBOX':
+            self.pushButton_outbox.setText(op)
+        elif op == 'JUMP':
+            self.pushButton_jump.setText(op)
+        elif op == 'JUMPN':
+            self.pushButton_jumpn.setText(op)
+        elif op == 'JUMPZ':
+            self.pushButton_jumpz.setText(op)
+        elif op == 'LABEL':
+            self.pushButton_label.setText(op)
+        elif op == 'COPYFROM':
+            self.pushButton_copyfrom.setText(op)
+        elif op == 'COPYTO':
+            self.pushButton_copyto.setText(op)
+        elif op == 'ADD':
+            self.pushButton_add.setText(op)
+        elif op == 'SUB':
+            self.pushButton_sub.setText(op)
+        elif op == 'BUMPUP':
+            self.pushButton_bumpup.setText(op)
+        elif op == 'BUMPDN':
+            self.pushButton_bumpdown.setText(op)
+
+    def help(self, op):
+        help_content = {
+            'INBOX': '取出inbox中的一个方块的内容，并将值传递到bus中',
+            'OUTBOX': '将bus中的内容传递到outbox中，并将bus置为None',
+            'COPYFROM': '接受一个目标X，将register中的第X个格子内容复制到bus中',
+            'COPYTO': '接受一个目标X，将bus中的值复制到register中的第X个格子中',
+            'ADD': '接受一个目标X，将bus中的内容和register中第X个格子的值相加，并用得到的结果覆盖bus',
+            'SUB': '接受一个目标X，将bus中的内容减去register中第X个格子的值，并用得到的结果覆盖bus',
+            'JUMP': '接受一个目标X，跳转到设置相同目标的LABEL操作的位置上',
+            'LABEL': '设置一个目标X，用于引导JUMP操作的跳转位置',
+            'JUMPN': '接受一个目标X，如果bus中内容为数字且为负数，执行此操作[该操作的执行参照JUMP]，否则跳过此操作',
+            'JUMPZ': '接受一个目标X，如果bus中内容为数字且为0，执行此操作[该操作的执行参照JUMP]，否则跳过此操作',
+            'BUMPUP': '接受一个目标X，该操作只能对于已存在内容的register的第X个格子使用，该操作会第X个格子的内容加1，然后将结果覆盖bus内容',
+            'BUMPDN': '接受一个目标X，该操作只能对于已存在内容的register的第X个格子使用，该操作会第X个格子的内容减1，然后将结果覆盖bus内容'
+        }
+        if op != '?':
+            self.code_desc_browser.setText(help_content[op])
+        else:
+            self.code_desc_browser.setText('???')
+
+    def rejudge_pass(self):
+        _, register_data, _, _, _ = get_level_data(self.level_num)
+        update_level_data(self.level_num, register_data)
+        inbox,  register_data, _, outbox, _= get_level_data(self.level_num)
+        self.inbox = inbox
+        ops = self.u_code_droplist.get_code_list()
+
+        state = cpu.create_state(iter(inbox), ops, register_data)
+        while state.pc != -1:
+            state = cpu.tick(state)
+        if operator.eq(state.outbox, outbox):
+            return True
+        else:
+            return False

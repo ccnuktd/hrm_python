@@ -2,7 +2,7 @@ from ui.setup import setup
 
 setup(
     name='hrm',
-    version='0.1',
+    version='1.1',
     packages=['hrmengine'],
     url='',
     license='',
