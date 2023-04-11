@@ -34,6 +34,7 @@ class LevelFinal(QMainWindow, Ui_MainWindow):
     def start_movie(self):
         self.movie = QMovie(self.filepath + str(self.num) + '.gif')
         self.movie_screen.setMovie(self.movie)
+        self.movie.setSpeed(200)
         self.movie.start()
 
     def next(self):

@@ -6,6 +6,7 @@ from PyQt5.QtMultimedia import QSound
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QLabel, QTextBrowser
 
 from hrmengine import parser
+from save.SaveInfo import SaveInfo
 
 from ui.hrm_ui import Ui_MainWindow
 from PyQt5.QtCore import QCoreApplication, Qt, QSize
@@ -13,9 +14,11 @@ from PyQt5.QtCore import QCoreApplication, Qt, QSize
 from hrmengine import cpu
 from hrmengine.cpu import ExecutionExceptin
 from hrmengine.parser import parse_address
+from upload import UploadForm
 from util.UpdateLevelDate import update_level_data
 from util.MyUtil import get_level_data, read_file
 from util.MyEnum import State
+from ranking import Ranking
 
 
 # Form implementation generated from reading ui file 'GameWindow.py'
@@ -34,6 +37,7 @@ class GameWindow(QMainWindow, Ui_MainWindow):
         # load level info
         self.load_level_info(level_num)
         self.level_num = level_num
+        self.ranking_list = Ranking()
 
         # Button event triggering
         self.u_start_btn.clicked['bool'].connect(self.start_event)
@@ -42,6 +46,7 @@ class GameWindow(QMainWindow, Ui_MainWindow):
         self.u_goon_btn.clicked['bool'].connect(self.goon_evnet)
         self.u_exit_btn.clicked['bool'].connect(self.exit_event)
         self.bgmButton.clicked['bool'].connect(self.switch_bgm_state)
+        self.actionranking_list.triggered.connect(self.ranking_list.show)
         self.operation_connection()
         self.check_text()
 
@@ -54,6 +59,14 @@ class GameWindow(QMainWindow, Ui_MainWindow):
 
         # 跳关
         self.key = ''
+
+        # user name
+        self.save_info = SaveInfo()
+        self.user_name = self.save_info.get_user()
+        if self.user_name is None:
+            self.user_name_browser.setText("未注册")
+        else:
+            self.user_name_browser.setText(self.user_name)
 
         # 绑定信号槽
         self.pushButtonPrev.clicked.connect(self.stackedWidget.slideInPrev)
@@ -69,8 +82,9 @@ class GameWindow(QMainWindow, Ui_MainWindow):
         self.state = None
         self.process_state = State.INIT
 
-        # 记录代码执行次数
-        self.total_count = 0
+        # 记录代码执行次数和代码长度
+        self.total_count = -1
+        self.code_length = 0
 
     def switch_bgm_state(self):
         if self.bgm_state == 1:
@@ -183,6 +197,9 @@ class GameWindow(QMainWindow, Ui_MainWindow):
         self.u_code_droplist.init_current_row()
         # init register group
         self.u_register_group.init_ui(2, 5, 60)
+        # init code msg
+        self.code_length = 0
+        self.total_count = -1
         if self.register_data is not None:
             for data in self.register_data:
                 self.u_register_group.set_value(data[0], data[1])
@@ -222,18 +239,33 @@ class GameWindow(QMainWindow, Ui_MainWindow):
         if operator.eq(self.state.outbox, self.outbox):
             if self.rejudge_pass():
                 # 触发setup的levelup函数
-                QMessageBox().information(self, "congratulations", "You pass this level!")
-                self.setup.level_up()
+                msg_box = QMessageBox()
+                msg_box.setWindowTitle("congratulations")
+                msg_box.setText("Your program uses " + str(self.code_length) + " lines of code.\n" + "Your have a total of " + str(self.total_count) + " operations.")
+                next_level = msg_box.addButton("Next Level", QMessageBox.AcceptRole)
+                upload_achieve = msg_box.addButton("Upload your achieve", QMessageBox.ActionRole)
+                msg_box.exec_()
+                if msg_box.clickedButton() == upload_achieve:
+                    self.upload_form = UploadForm(self.level_num, self.code_length, self.total_count, self.setup)
+                    save_info = SaveInfo()
+                    if not save_info.check_user():
+                        self.upload_form.show()
+                    else:
+                        self.upload_form.upload()
+                elif msg_box.clickedButton() == next_level:
+                    self.setup.level_up()
             else:
-                QMessageBox().information(self, "sorry", "This method only solves the current problem and will not work if the inbox data changes, please try again.")
+                QMessageBox().information(self, "sorry", "This method only solves the current problem and will not "
+                                                         "work if the inbox data changes, please try again.")
         else:
-            QMessageBox().information(self, "sorry", "please try again")
+            QMessageBox().information(self, "sorry", "We don't need your output. Please try again.")
 
     def process(self):
         while True:
             if self.process_state == State.INIT:
                 self.pre_process()
                 ops = self.u_code_droplist.get_code_list()
+                self.code_length = len(ops)
                 error_msgs = parser.compiling(ops)
                 if error_msgs is not '':
                     QMessageBox().warning(self, "compiling error", error_msgs)
@@ -251,8 +283,7 @@ class GameWindow(QMainWindow, Ui_MainWindow):
                         self.total_count += 1
                         if self.total_count > 200:
                             # 当执行次数超过200次
-                            QMessageBox().information(self, "run time error", "endless loop")
-                            self.total_count = 0
+                            QMessageBox().information(self, "run time error", "Operation runs too many times")
                             break
                         # show UI state
                         self.ui_show(self.state.prev_state, self.state)
@@ -263,8 +294,12 @@ class GameWindow(QMainWindow, Ui_MainWindow):
                     if e.__str__() == "'INBOX has no more items'":
                         # if inbox is empty, check if pass this level
                         self.check_pass()
+                        break
                     else:
                         QMessageBox().warning(self, "runtime error", e.__str__())
+                        break
+                except:
+                    QMessageBox().warning(self, "runtime error", "runtime error")
                     break
             elif self.process_state == State.STOP:
                 QCoreApplication.processEvents()
@@ -273,6 +308,7 @@ class GameWindow(QMainWindow, Ui_MainWindow):
                     if self.state.pc != -1:
                         # CPU state
                         self.state = cpu.tick(self.state)
+                        self.total_count += 1
                         # show UI state
                         self.ui_show(self.state.prev_state, self.state)
                         self.process_state = State.STOP
@@ -280,6 +316,9 @@ class GameWindow(QMainWindow, Ui_MainWindow):
                         break
                 except ExecutionExceptin as e:
                     QMessageBox().warning(self, "runtime error", e.__str__())
+                    break
+                except:
+                    QMessageBox().warning(self, "runtime error", "runtime error")
                     break
             elif self.process_state == State.EXIT:
                 break
@@ -422,11 +461,15 @@ class GameWindow(QMainWindow, Ui_MainWindow):
         update_level_data(self.level_num, register_data)
         inbox,  register_data, _, outbox, _= get_level_data(self.level_num)
         self.inbox = inbox
+        self.outbox = outbox
         ops = self.u_code_droplist.get_code_list()
 
         state = cpu.create_state(iter(inbox), ops, register_data)
         while state.pc != -1:
-            state = cpu.tick(state)
+            try:
+                state = cpu.tick(state)
+            except:
+                break
         if operator.eq(state.outbox, outbox):
             return True
         else:
