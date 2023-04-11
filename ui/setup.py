@@ -56,7 +56,7 @@ class SetUp:
         ok = QMessageBox().question(None, "Question", "是否清除所有存档?", QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
         if ok == QMessageBox.Yes:
             self.max_level_num = -1
-            self.saveinfo.save_level_info(self.max_level_num)
+            self.saveinfo.restart()
             self.hello.close()
             self.show_main_window()
 

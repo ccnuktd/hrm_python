@@ -37,8 +37,14 @@ def gen_data_level(level_num, inbox_data, register_data):
         outbox_data = gen_outbox_data_6(inbox_data)
     elif level_num == 7:
         # inbox中需要又比较多的相同的数
-        inbox_data[1] = inbox_data[0]
-        inbox_data[7] = inbox_data[6]
+        if inbox_data[0] % 2:
+            inbox_data[1] = inbox_data[0]
+        if inbox_data[2] % 2:
+            inbox_data[3] = inbox_data[2]
+        if inbox_data[4] % 2:
+            inbox_data[5] = inbox_data[4]
+        if inbox_data[6] % 2:
+            inbox_data[7] = inbox_data[6]
         outbox_data = gen_outbox_data_7(inbox_data)
     elif level_num == 8:
         outbox_data = gen_outbox_data_8(inbox_data)
@@ -51,7 +57,7 @@ def gen_data_level(level_num, inbox_data, register_data):
         inbox_data = [5, 2, 4, 7, 6, 3, 9, 8]
         outbox_data = gen_outbox_data_10(inbox_data, register_data)
     elif level_num == 11:
-        inbox_data = [34 + inbox_data[0] % 20]
+        inbox_data[0] = rng.integers(0, 100)
         outbox_data = gen_outbox_data_11(inbox_data)
     elif level_num == 12:
         # 输入限制在0~5之间
