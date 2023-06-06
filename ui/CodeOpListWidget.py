@@ -113,8 +113,10 @@ class OperationDropList(QListWidget):
         self._addItem(operation)
 
     def dragEnterEvent(self, e: QtGui.QDragEnterEvent) -> None:
+        # 记录待拖动指令所在位置now_row
         self.now_row = self.currentRow()
         self.setCurrentRow(-1)
+        #  根据now_row指令的信息设置到signal中
         if self.now_row != -1:
             now_item = self.itemWidget(self.item(self.now_row))
             if now_item is not None:
@@ -187,10 +189,10 @@ class CodeWidget(QWidget):
             ly_main.addWidget(blank)
             ly_main.addWidget(self._code_text)
             ly_main.addWidget(self._param)
-            # blank:code:param=1:3:1
-            ly_main.setStretchFactor(blank, 1)
+            # code:param:blank=3:2:1
             ly_main.setStretchFactor(self._code_text, 3)
-            ly_main.setStretchFactor(self._param, 1)
+            ly_main.setStretchFactor(self._param, 2)
+            ly_main.setStretchFactor(blank, 1)
         elif self._op_type == OpType.LABEL:
             # case: label
             ly_main.addWidget(self._code_text)
@@ -202,7 +204,7 @@ class CodeWidget(QWidget):
             ly_main.addWidget(self._code_text)
             # blank:code=1:4
             ly_main.setStretchFactor(blank, 1)
-            ly_main.setStretchFactor(self._code_text, 4)
+            ly_main.setStretchFactor(self._code_text, 2)
             self._param = None
         ly_main.setSpacing(0)
         self.setLayout(ly_main)
@@ -304,7 +306,7 @@ class CodeDropList(QListWidget):
 
     def _addItem(self, *command):
         item_widget = QListWidgetItem()
-        item_widget.setSizeHint(QSize(0, 40))
+        item_widget.setSizeHint(QSize(0, 65))
 
         code = CodeWidget()
         code.set_all(*command)
@@ -313,7 +315,7 @@ class CodeDropList(QListWidget):
 
     def _insertItem(self, pos, *command):
         item_widget = QListWidgetItem()
-        item_widget.setSizeHint(QSize(0, 40))
+        item_widget.setSizeHint(QSize(0, 65))
 
         code = CodeWidget()
         code.set_all(*command)
@@ -322,12 +324,11 @@ class CodeDropList(QListWidget):
 
     def dragEnterEvent(self, e: QtGui.QDragEnterEvent) -> None:
         if self.forbidden_drag_flag is False:
+            # 记录当前进入code box的位置now_row
             self.now_row = self.row(self.itemAt(e.pos()))
-
-            # now_row recode
             if self.now_row == -1:
                 self.now_row = 0 if self.count() == 0 else self.count()
-
+            # 通过signal设置的信号接收指令信息
             op = self.slot.get_item()
             if op is not None:
                 # drag a operation into a code box

@@ -3,7 +3,7 @@ import os
 
 from PyQt5.QtGui import QColor, QFont, QIcon, QKeyEvent
 from PyQt5.QtMultimedia import QSound
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QLabel, QTextBrowser
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QLabel, QTextBrowser, QWidget, QApplication, QAbstractScrollArea
 
 from hrmengine import parser
 from save.SaveInfo import SaveInfo
@@ -448,8 +448,8 @@ class GameWindow(QMainWindow, Ui_MainWindow):
             'LABEL': '设置一个目标X，用于引导JUMP操作的跳转位置',
             'JUMPN': '接受一个目标X，如果bus中内容为数字且为负数，执行此操作[该操作的执行参照JUMP]，否则跳过此操作',
             'JUMPZ': '接受一个目标X，如果bus中内容为数字且为0，执行此操作[该操作的执行参照JUMP]，否则跳过此操作',
-            'BUMPUP': '接受一个目标X，该操作只能对于已存在内容的register的第X个格子使用，该操作会第X个格子的内容加1，然后将结果覆盖bus内容',
-            'BUMPDN': '接受一个目标X，该操作只能对于已存在内容的register的第X个格子使用，该操作会第X个格子的内容减1，然后将结果覆盖bus内容'
+            'BUMPUP': '接受一个目标X，该操作只能对于已存在内容的register的第X个格子使用，该操作会将第X个格子的内容加1，然后将结果覆盖bus内容',
+            'BUMPDN': '接受一个目标X，该操作只能对于已存在内容的register的第X个格子使用，该操作会将第X个格子的内容减1，然后将结果覆盖bus内容'
         }
         if op != '?':
             self.code_desc_browser.setText(help_content[op])
@@ -459,7 +459,7 @@ class GameWindow(QMainWindow, Ui_MainWindow):
     def rejudge_pass(self):
         _, register_data, _, _, _ = get_level_data(self.level_num)
         update_level_data(self.level_num, register_data)
-        inbox,  register_data, _, outbox, _= get_level_data(self.level_num)
+        inbox,  register_data, _, outbox, _ = get_level_data(self.level_num)
         self.inbox = inbox
         self.outbox = outbox
         ops = self.u_code_droplist.get_code_list()

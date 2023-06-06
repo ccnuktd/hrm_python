@@ -110,7 +110,11 @@ def compiling(code):
         if is_valid_op(command):
             if cpu.isLabel(command[0]):
                 label_text = command[0][:-1]
-                label[label_text] = 0
+                if label_text in label.keys():
+                    error_msg = "line " + str(line) + ": set the same label before\n"
+                    error_msgs += error_msg
+                else:
+                    label[label_text] = 0
         else:
             # invalid command
             error_msg = "line " + str(line) + ": lack of param\n"

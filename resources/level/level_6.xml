@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf8'?>
 <level>
     <inbox>
-        <data>5</data><data>5</data><data>-9</data><data>7</data><data>-8</data><data>-7</data><data>5</data><data>3</data></inbox>
+        <data>-2</data><data>1</data><data>-4</data><data>-5</data><data>0</data><data>4</data><data>0</data><data>2</data></inbox>
     <register>
     </register>
     <desc>level description:
@@ -9,7 +9,7 @@
 您得到了add操作
     </desc>
     <outbox>
-        <data>10</data><data>-2</data><data>-15</data><data>8</data></outbox>
+        <data>-1</data><data>-9</data><data>4</data><data>2</data></outbox>
     <speak>
         <word>Angela: 您做的很好，公司最近的能源获取非常顺利</word>
         <word>Angela: 那么请允许我告诉您关于“精灵”的秘密</word>
@@ -18,7 +18,7 @@
         <word>Angela: 这时，A发现了这些称作“精灵”的奇迹</word>
         <word>Angela: 并从他们身上发现了获取能源的方法</word>
         <word>Angela: 于是A创办了hrm公司</word>
-        <word>Angela: 您所设计的”自动化流程“便是指导各部门员工在这些“精灵”身上获取能源的过程</word>
+        <word>Angela: 您所设计的“自动化流程”便是指导各部门员工在这些“精灵”身上获取能源的过程</word>
         <word>Angela: 但是这些“精灵”非常危险，需要恰当的”引导“</word>
         <word>Angela: 这就依赖于您的“自动化流程”的设计了</word>
         <word>Angela: 同样获取能源的过程，不同的”自动化流程“的“操作次数”和“流程规模”是不同的</word>
